@@ -6,7 +6,10 @@
   "scripts": {
     "watch": "sass src/scss:dist/css --watch",
     "start": "live-server",
-    "dev": "npm-run-all --parallel watch start"
+    "dev": "npm-run-all --parallel watch start",
+    "build": "sass src/scss:dist/css --style compressed",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build"
   },
   "repository": {
     "type": "git",

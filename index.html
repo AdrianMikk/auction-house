@@ -11,15 +11,142 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
-    <title>Document</title>
+    <script src="/src/js/index.js"></script>
+    <title>Login | EchoBids</title>
 </head>
 
 <body>
     <header>
-        <h1 class="mt-5 pt-4">Hello</h1>
+        <div class="bs-component">
+            <nav class="navbar navbar-expand-lg d-flex p-2">
+                <a class="navbar-brand logo fs-2" href="/index.html">
+                    EchoBids
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse order-lg-1 justify-content-between" id="navbarColor01">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item ml-3">
+                            <a class="nav-link d-flex active fs-5" href="/listings.html">Buy</a>
+                        </li>
+                        <li class="nav-item ml-3">
+                            <a class="nav-link d-flex fs-5" href="/sell.html">Sell</a>
+                        </li>
+                        <li class="nav-item ml-3">
+                            <a class="nav-link d-flex fs-5" href="/profile.html">Profile</a>
+                        </li>
+                        <li class="nav-item ml-3">
+                            <a class="nav-link d-flex fs-5" href="/contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item ml-3">
+                            <a class="nav-link d-flex fs-5" href="/about.html">About</a>
+                        </li>
+                    </ul>
+                    <div class="">
+                        <li>Credits: 123</li>
+                    </div>
+                    <form class="form d-flex justify-content-between my-lg-0">
+                        <label for="search" class="visually-hidden">Search</label>
+                        <input id="search" class="form-control mr-sm-2" type="search" placeholder="Search">
+                        <button class="btn btn-light m-2 my-sm-0" type="submit">
+                            Search
+                        </button>
+                    </form>
+                </div>
+            </nav>
+        </div>
     </header>
-    <main>
+
+    <main class="container d-flex flex-column justify-content-center align-items-center">
+        <h1 class="mt-5 p-5">EchoBids</h1>
+        <div class="connect-p mt-1 fs-4 text-center">
+            <p>Bid, Win, Cherish: Your Auction Adventure Begins Here!</p>
+        </div>
+        <div class="col-md-6 box max-width-400 pt-4">
+            <form id="login-form">
+                <h3 class="h3 mb-3 fw-normal text-center">Login / Register</h3>
+
+                <div class="form-floating bg m-2">
+                    <input type="email" class="login-email form-control bg-light" required id="floatingInput"
+                        placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating m-2">
+                    <input type="password" class="form-control bg-light" required minlength="8" id="floatingPassword"
+                        placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+
+                <div class="form-check text-start my-3">
+                    <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Remember me
+                    </label>
+                </div>
+                <button class="btn btn-success w-100 py-2" type="submit" id="login-register-btn">Login</button>
+            </form>
+            <a type="button" class="register-modal btn-primary m-2" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                Don't have an account? Register here.
+            </a>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title fs-5" id="exampleModalLabel">EchoBids Register</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="registration-form">
+                                <h5 class="h3 mb-3 fw-normal text-center">Register</h5>
+                                <div class="form-floating bg m-2">
+                                    <input type="name" class="register-name form-control bg-light"
+                                        id="floatingRegisterNameInput" placeholder="name@example.com">
+                                    <label for="floatingInput">Full Name</label>
+                                </div>
+                                <div class="form-floating bg m-2">
+                                    <input type="email" class="register-email form-control bg-light" required
+                                        id="floatingRegisterEmailInput" placeholder="name@example.com">
+                                    <label for="floatingInput">Email address</label>
+                                </div>
+                                <div class="form-floating m-2">
+                                    <input type="password" class="form-control bg-light" required minlength="8"
+                                        id="floatingRegisterPasswordInput" placeholder="Password">
+                                    <label for="floatingPassword">Password</label>
+                                </div>
+                                <button class="btn btn-secondary w-100 py-2" type="submit" id="register-btn">
+                                    Register</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
     </main>
+
+    <footer class="footer-container d-flex p-2 fixed-bottom">
+        <div class="container">
+            <div class="row fs-3">
+                <div class="col-md-6">
+                    <p>&copy; Copyright 2023</p>
+                </div>
+                <div class="col-md-6 text-md-end d-flex justify-content-between">
+                    <img src="/images/facebook.svg" alt="Logo 1" class="logo">
+                    <img src="/images/insta.svg" alt="Logo 2" class="logo">
+                    <img src="/images/twitter.svg" alt="Logo 3" class="logo">
+                    <img src="/images/discord.svg" alt="Logo 4" class="logo">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
 </body>
 
 </html>

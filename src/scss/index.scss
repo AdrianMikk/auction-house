@@ -1,5 +1,24 @@
-$primary-colour: #e85a4f;
+$primary-color: #759395;
+$secondary-color: #856866;
 
-p {
-  color: $primary-colour;
+
+.navbar, #login-register-btn, #register-btn {
+  background-color: $primary-color;
+}
+
+#login-register-btn, #register-btn {
+  color: black;
+}
+
+footer {
+  background-color: $secondary-color;
+}
+
+.footer-container {
+  color: white;
+}
+
+.btn {
+  background-color: $primary-color;
+  border-color: $primary-color;
 }

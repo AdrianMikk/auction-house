@@ -1,3 +1,20 @@
-p {
-  color: #e85a4f;
+.navbar, #login-register-btn, #register-btn {
+  background-color: #759395;
+}
+
+#login-register-btn, #register-btn {
+  color: black;
+}
+
+footer {
+  background-color: #856866;
+}
+
+.footer-container {
+  color: white;
+}
+
+.btn {
+  background-color: #759395;
+  border-color: #759395;
 }/*# sourceMappingURL=index.css.map */
