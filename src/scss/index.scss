@@ -1,6 +1,7 @@
 @import "/src/scss/variables/colorTheme";
 @import "/src/scss/variables/fonts";
 @import "~bootstrap/scss/bootstrap";
+@import "/src/scss/contact";
 
 .navbar, #login-register-btn, #register-btn {
   background-color: $primary;
