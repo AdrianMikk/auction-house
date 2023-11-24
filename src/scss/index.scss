@@ -1,7 +1,7 @@
-@import "/src/scss/variables/colorTheme";
-@import "/src/scss/variables/fonts";
+@import "./variables/colorTheme";
+@import "./variables/fonts";
 @import "~bootstrap/scss/bootstrap";
-@import "/src/scss/contact";
+@import "./contact";
 
 .navbar, #login-register-btn, #register-btn {
   background-color: $primary;
@@ -28,4 +28,8 @@ footer {
     background-color: darken($primary, 10%);
     border-color: darken($primary, 10%);
   }
+}
+
+.sell-container, #fullName, #email, #subject, #message {
+  background-color: $background-white;
 }
