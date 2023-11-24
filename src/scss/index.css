@@ -1,8 +1,11 @@
-.navbar, #login-register-btn, #register-btn {
+.navbar,
+#login-register-btn,
+#register-btn {
   background-color: #759395;
 }
 
-#login-register-btn, #register-btn {
+#login-register-btn,
+#register-btn {
   color: black;
 }
 
@@ -14,7 +17,15 @@ footer {
   color: white;
 }
 
-.btn {
+.btn-success {
   background-color: #759395;
   border-color: #759395;
-}/*# sourceMappingURL=index.css.map */
+}
+
+.btn-success:hover,
+.btn-success:focus {
+  background-color: #5d787a;
+  border-color: #5d787a;
+}
+
+/*# sourceMappingURL=index.css.map */

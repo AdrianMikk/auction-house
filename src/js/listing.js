@@ -5,6 +5,8 @@ import { addEditPostListeners } from "./components/editposts.js";
 import { addDeletePostListeners } from "./components/deletepost.js";
 import { search } from "./components/search.mjs";
 
+console.log("Hello world!");
+
 
 const fullPostURL = "https://api.noroff.dev/api/v1/auction";
 const postFeedContainer = document.getElementById("postFeed");
@@ -88,13 +90,13 @@ export function displayFilteredPosts(data) {
         const bodyElement = createNewElement("p", { class: "card-text", textContent: body });
 
         const viewButton = createNewElement("button", {
-            class: "btn btn-primary view-post",
+            class: "btn btn-success view-post",
             "data-post-id": id,
             textContent: "View Post",
         });
 
         const editButton = createNewElement("button", {
-            class: "btn btn-primary edit-post",
+            class: "btn btn-success edit-post",
             "data-post-id": id,
             textContent: "Edit Post",
         });

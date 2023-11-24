@@ -1,9 +1,9 @@
-$primary-color: #759395;
-$secondary-color: #856866;
-
+@import "/src/scss/variables/colorTheme";
+@import "/src/scss/variables/fonts";
+@import "~bootstrap/scss/bootstrap";
 
 .navbar, #login-register-btn, #register-btn {
-  background-color: $primary-color;
+  background-color: $primary;
 }
 
 #login-register-btn, #register-btn {
@@ -11,14 +11,20 @@ $secondary-color: #856866;
 }
 
 footer {
-  background-color: $secondary-color;
+  background-color: $secondary;
 }
 
 .footer-container {
   color: white;
 }
 
-.btn {
-  background-color: $primary-color;
-  border-color: $primary-color;
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+
+  &:hover,
+  &:focus {
+    background-color: darken($primary, 10%);
+    border-color: darken($primary, 10%);
+  }
 }
