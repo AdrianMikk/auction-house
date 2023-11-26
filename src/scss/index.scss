@@ -3,7 +3,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "./contact";
 
-.navbar, #login-register-btn, #register-btn {
+.navbar, #login-register-btn, #register-btn, #createListingBtn, #contactSubmitBtn, #bidNowBtn {
   background-color: $primary;
 }
 
