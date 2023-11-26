@@ -1,7 +1,6 @@
-console.log("Hello world!");
-
 import { loginEvent } from "./API/login.mjs";
 import { registerEvent } from "./API/register.mjs";
+
 const loginRegisterButton = document.querySelector("#loginRegisterBtn");
 const registerButton = document.querySelector("#registerBtn");
 
@@ -24,6 +23,8 @@ function checkIfLoggedIn() {
     const token = localStorage.getItem("accessToken")
 
     if (userId && token)
-        window.location.replace(`/profile/index.html?=${userId}`)
+        window.location.replace(`/profile.html?=${userId}`)
 }
 checkIfLoggedIn();
+
+console.log("Hello world!");
