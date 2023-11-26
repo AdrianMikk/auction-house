@@ -10723,7 +10723,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.navbar, #btn {
+.navbar, #btn, #loginRegisterBtn, #registerBtn {
   background-color: #759395;
 }
 
