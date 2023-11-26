@@ -10723,12 +10723,12 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.navbar, #login-register-btn, #register-btn, #createListingBtn, #contactSubmitBtn, #bidNowBtn {
+.navbar, #btn {
   background-color: #759395;
 }
 
-#login-register-btn, #register-btn {
-  color: black;
+#closeBtn {
+  background-color: #856866;
 }
 
 footer {

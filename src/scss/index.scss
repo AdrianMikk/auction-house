@@ -2,13 +2,14 @@
 @import "./variables/fonts";
 @import "~bootstrap/scss/bootstrap";
 @import "./contact";
+@import "./about";
 
-.navbar, #login-register-btn, #register-btn, #createListingBtn, #contactSubmitBtn, #bidNowBtn {
+.navbar, #btn {
   background-color: $primary;
 }
 
-#login-register-btn, #register-btn {
-  color: black;
+#closeBtn {
+  background-color: $secondary;
 }
 
 footer {
