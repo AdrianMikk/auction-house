@@ -57,7 +57,6 @@ async function init() {
 }
 
 function createPostCard(post) {
-
     if (!postFeedContainer) {
         console.error("postFeedContainer not found in the document.");
         return;
@@ -72,20 +71,22 @@ function createPostCard(post) {
     const bodyElement = document.createElement("p");
     bodyElement.textContent = post.body || "No content";
 
+    card.classList.add("col-12", "col-md-6", "col-lg-4", "mb-4");
+    const imageUrl = post.media || "https://via.placeholder.com/300";
+    const image = document.createElement("img");
+    image.src = imageUrl;
+    image.alt = post.title || "Image Alt Text";
+    image.classList.add("card-img-top");
+
+    card.appendChild(image);
     card.appendChild(titleElement);
     card.appendChild(bodyElement);
 
     postFeedContainer.appendChild(card);
 }
 
-const examplePost = {
-    title: "Sample Title",
-    body: "This is the content of the post.",
-};
-
-createPostCard(examplePost);
-
 init();
+
 
 
 
