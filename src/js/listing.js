@@ -1,219 +1,91 @@
-import { apiFetch } from "./API/apiFetch.mjs";
-import { createNewElement } from "./utils/createNewElement.mjs";
-import { createNewPost } from "./components/createPost.mjs";
-import { addEditPostListeners } from "./components/editposts.js";
-import { addDeletePostListeners } from "./components/deletepost.js";
-import { search } from "./components/search.mjs";
+// import { apiFetch } from "./API/apiFetch.mjs";
+// import { createNewElement } from "./utils/createNewElement.mjs";
+// import { createNewPost } from "./components/createPost.mjs";
+// import { addEditPostListeners } from "./components/editposts.js";
+// import { addDeletePostListeners } from "./components/deletepost.js";
+// import { search } from "./components/search.mjs";
+// import { displayPosts } from "./fetchAndDisplay.js";
 
-console.log("Hello world!");
-
-
-const fullPostURL = "https://api.noroff.dev/api/v1/auction";
+const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
 const postFeedContainer = document.getElementById("postFeed");
 const searchInput = document.getElementById("search");
 
-const newPostTitleInput = document.getElementById("newPostTitle");
-const newPostBodyInput = document.getElementById("newPostBody");
-const newPostImageInput = document.getElementById("newPostImageInput");
-
-const editPostButton = document.querySelector(".edit-post")
-const viewPostButton = document.getElementById("viewPostButton");
-const deleteButton = document.getElementById("deleteButton");
-
 searchInput.addEventListener("input", search);
 
-const createPostForm = document.getElementById("createPostForm");
-const accessToken = localStorage.getItem("accessToken");
-const loggedInEmail = localStorage.getItem("email");
-const loggedInName = localStorage.getItem("name");
+const API_BASE_URL = "https://api.noroff.dev/api/v1/auction/";
+const listing_endpoint = "listings";
 
-const editPostForm = document.getElementById("editPostForm");
-const editPostTitleInput = document.getElementById("editPostTitle");
-const editPostBodyInput = document.getElementById("editPostBody");
-
-// Modal
-const postModal = document.getElementById("postModal");
-const editPostModal = document.getElementById("editPostModal");
-
-/**
- * Fetches and displays posts if a user is authenticated.
- *
- * If the user is authenticated this function fetches posts
- * from an API and displays them. If not authenticated, it redirects to the homepage.
- *
- * @async
- * @function fetchAndDisplayItems
- *
- * @throws {Error} If there is an issue with the API request or response.
- *
- * @returns {Promise<void>} A Promise that resolves when the posts are fetched and displayed.
- */
-export async function fetchAndDisplayItems() {
-    if (!accessToken) {
-        location.href = "/index.html";
-    }
+async function fetchAllAuctions(url) {
     try {
-        const options = {
+        const fetchAllAuctionsOptions = {
+            method: "GET",
             headers: {
-                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json",
             },
         };
-        let postList = await apiFetch(fullPostURL + `?_author=true`, options);
-        displayFilteredPosts(postList);
+
+        const response = await fetch(url, fetchAllAuctionsOptions);
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const json = await response.json();
+        return json;
     } catch (error) {
-        alert("Failed to fetch posts.");
+        console.error("Error:", error);
+        throw error;
     }
 }
 
-/**
- * Filter and display posts based on the search input value.
- */
-export function displayFilteredPosts(data) {
+function search(event) {
+}
 
-    postFeedContainer.innerHTML = "";
+async function init() {
+    try {
+        const allAuctions = `${API_BASE_URL}${listing_endpoint}`;
+        const json = await fetchAllAuctions(allAuctions);
 
-    data.forEach(({ id, title, body, media, author }) => {
+        console.log("All Auctions:", json);
 
-        const postCard = document.createElement("div");
-        postCard.classList.add("col-12", "col-md-6", "col-lg-4", "mb-4");
-        const imageUrl = media ? media : "https://via.placeholder.com/300";
-        postCard.id = id;
-
-        const cardDiv = createNewElement("div", { class: "card" })
-
-        const image = createNewElement("img", { src: imageUrl, alt: title, class: "card-img-top" });
-
-        const cardBodyDiv = createNewElement("div", { class: "card-body" });
-
-        const titleElement = createNewElement("h5", { class: "card-title", textContent: title });
-
-        const bodyElement = createNewElement("p", { class: "card-text", textContent: body });
-
-        const viewButton = createNewElement("button", {
-            class: "btn btn-success view-post",
-            "data-post-id": id,
-            textContent: "View Post",
+        json.forEach((post) => {
+            createPostCard(post);
         });
+    } catch (error) {
+        console.error("Error fetching all auctions:", error.message);
+    }
+}
 
-        const editButton = createNewElement("button", {
-            class: "btn btn-success edit-post",
-            "data-post-id": id,
-            textContent: "Edit Post",
-        });
+function createPostCard(post) {
 
-        const deleteButton = createNewElement("button", {
-            class: "btn btn-danger delete-post",
-            "data-post-id": id,
-            textContent: "Delete Post",
-        });
-
-        cardBodyDiv.appendChild(titleElement);
-        cardBodyDiv.appendChild(bodyElement);
-        cardBodyDiv.appendChild(viewButton);
-        if (author.name === loggedInName) {
-            cardBodyDiv.appendChild(editButton);
-            cardBodyDiv.appendChild(deleteButton);
-        }
-        cardDiv.appendChild(image);
-        cardDiv.appendChild(cardBodyDiv);
-
-        postCard.appendChild(cardDiv);
-
-        postFeedContainer.appendChild(postCard);
-    });
-
-    addViewPostListeners();
-    addEditPostListeners();
-    addDeletePostListeners();
-
-
-
-    /**
-     * Filters posts by date based on user selection.
-     *
-     * This function attaches event listeners to two HTML elements, typically used for
-     * filtering posts by date: "Newest Posts" and "Oldest Posts" buttons. When a user clicks
-     * on one of these buttons, the function either fetches and displays posts or sorts the
-     * existing posts by their creation date and displays the filtered results.
-     */
-    async function filterPost() {
-        const dropdownMenu = document.getElementById("dropdownMenu");
-        const filterNewPost = document.getElementById("newestPost");
-        const filterOldPost = document.getElementById("oldestPost");
-
-        filterNewPost.addEventListener("click", (e) => {
-            fetchAndDisplayItems();
-        });
-
-        filterOldPost.addEventListener("click", (e) => {
-            const postsDesc = data.sort(
-                (a, b) => new Date(a.created) - new Date(b.created)
-            );
-            displayFilteredPosts(postsDesc);
-        });
+    if (!postFeedContainer) {
+        console.error("postFeedContainer not found in the document.");
+        return;
     }
 
-    filterPost();
+    const card = document.createElement("div");
+    card.classList.add("card");
 
+    const titleElement = document.createElement("h2");
+    titleElement.textContent = post.title || "No Title";
 
-    /**
-     * Add click event listeners to "View Post" buttons.
-     * When a button is clicked, display the post content or handle accordingly.
-     */
-    function addViewPostListeners() {
-        const viewPostButtons = document.querySelectorAll(".view-post");
-        viewPostButtons.forEach((button) => {
-            button.addEventListener("click", (e) => {
-                const postId = e.target.getAttribute("data-post-id");
-                const post = data.find((post) => post.id === parseInt(postId));
-                if (post) {
-                    const modalTitle = document.getElementById("modalTitle");
-                    const modalBody = document.getElementById("modalBody");
-                    const modalImage = document.getElementById("modalImage");
-                    const postIdElement = document.getElementById("postId");
-                    postIdElement.textContent = "Post ID: " + postId;
-                    modalTitle.textContent = post.title;
-                    modalBody.textContent = post.body;
-                    modalImage.src = post.media;
-                    postModal.style.display = "block";
-                } else {
-                    alert("Post not found.");
-                }
-            });
-        });
-    }
+    const bodyElement = document.createElement("p");
+    bodyElement.textContent = post.body || "No content";
 
-    const closeModalButton = document.getElementById("closeModalButton");
-    closeModalButton.addEventListener("click", () => {
-        postModal.style.display = "none";
-    });
+    card.appendChild(titleElement);
+    card.appendChild(bodyElement);
 
+    postFeedContainer.appendChild(card);
+}
 
+const examplePost = {
+    title: "Sample Title",
+    body: "This is the content of the post.",
 };
 
-createPostForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+createPostCard(examplePost);
 
-    const title = newPostTitleInput.value;
-    const body = newPostBodyInput.value;
-    const media = newPostImageInput.value;
+init();
 
-    const newPostData = {
-        title,
-        body,
-        media,
-    };
 
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify(newPostData),
-    };
 
-    createNewPost(options);
-})
-
-fetchAndDisplayItems();
