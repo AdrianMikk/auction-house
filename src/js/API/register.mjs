@@ -1,7 +1,7 @@
 import { apiFetch } from "./apiFetch.mjs";
 
 const API_BASE_URL = "https://api.noroff.dev/api/v1/auction";
-const API_SOCIAL_REGISTER_PATH = "/social/auth/register";
+const API_SOCIAL_REGISTER_PATH = "/auth/register";
 const API_SOCIAL_REGISTER_URL = `${API_BASE_URL}${API_SOCIAL_REGISTER_PATH}`;
 
 /**

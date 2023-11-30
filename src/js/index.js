@@ -30,6 +30,6 @@ function checkIfLoggedIn() {
     if (userId && token)
         window.location.replace(`/profile.html?=${userId}`);
 }
-checkIfLoggedIn();
+// checkIfLoggedIn();
 
 console.log("Hello world!");

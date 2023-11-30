@@ -7,6 +7,6 @@
 export async function apiFetch(url, userData) {
     const response = await fetch(url, userData);
     const result = await response.json();
-
+    console.log(result);
     return result;
 };

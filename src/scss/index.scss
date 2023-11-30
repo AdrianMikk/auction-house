@@ -4,15 +4,12 @@
 @import "./contact";
 @import "./about";
 
-.navbar, #btn, #loginRegisterBtn, #registerBtn {
+.navbar, #btn, #loginRegisterBtn, #registerBtn,
+#closeBtn, footer {
   background-color: $primary;
 }
 
-#closeBtn {
-  background-color: $secondary;
-}
-
-footer {
+#closeBtn, footer {
   background-color: $secondary;
 }
 
@@ -24,8 +21,7 @@ footer {
   background-color: $primary;
   border-color: $primary;
 
-  &:hover,
-  &:focus {
+  &:hover, &:focus {
     background-color: darken($primary, 10%);
     border-color: darken($primary, 10%);
   }
@@ -34,3 +30,4 @@ footer {
 .sell-container, #fullName, #email, #subject, #message {
   background-color: $background-white;
 }
+

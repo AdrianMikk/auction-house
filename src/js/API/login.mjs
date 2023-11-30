@@ -1,6 +1,6 @@
 import { apiFetch } from "./apiFetch.mjs";
 
-const API_BASE_URL = "https://api.noroff.dev";
+const API_BASE_URL = "https://api.noroff.dev/api/v1";
 
 const profileLink = document.getElementById("navProfile");
 const userName = document.getElementById("userName");
@@ -20,14 +20,14 @@ function setToken(result) {
         localStorage.setItem("accessToken", result.accessToken);
         localStorage.setItem("email", result.email);
         localStorage.setItem("name", result.name);
-        window.location.href = "/feed/index.html"
+        window.location.href = "/listings.html"
     } else {
         alert("Enter correct email and password")
         throw new Error("Access token not found in the response.")
     }
 };
 
-const API_SOCIAL_LOGIN_PATH = "/social/auth/login";
+const API_SOCIAL_LOGIN_PATH = "/auction/auth/login";
 const API_SOCIAL_LOGIN_URL = `${API_BASE_URL}${API_SOCIAL_LOGIN_PATH}`;
 
 /**
@@ -59,4 +59,19 @@ export async function loginEvent(event) {
     const result = await apiFetch(API_SOCIAL_LOGIN_URL, loginOption);
 
     setToken(result);
+    console.log(result);
 };
+
+/**
+ * Logs out the user by clearing local storage on button click.
+ *
+ * @function logOutUser
+ */
+function logOutUser() {
+    const logOutBtn = document.getElementById("logOut")
+    logOutBtn.addEventListener("click", () => {
+        localStorage.clear()
+    })
+}
+logOutUser();
+

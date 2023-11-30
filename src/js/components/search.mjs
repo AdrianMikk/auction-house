@@ -1,5 +1,5 @@
 import { apiFetch } from '../API/apiFetch.mjs';
-import { displayFilteredPosts } from '../posts.js';
+import { fetchAllAuctions } from '../listing.mjs';
 
 const accessToken = localStorage.getItem("accessToken");
 const searchInput = document.getElementById("search");
@@ -26,5 +26,5 @@ export async function search() {
     const postData = await apiFetch(fullPostURL, options);
     const searchValue = searchInput.value.toLowerCase();
     const filteredData = postData.filter((post) => post.title.toLowerCase().includes(searchValue));
-    displayFilteredPosts(filteredData);
+    fetchAllAuctions(filteredData);
 }
