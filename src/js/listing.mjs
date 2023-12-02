@@ -1,5 +1,6 @@
 import { search } from "./components/search.mjs";
 import { displayFilteredPosts } from "./components/filter.mjs";
+import { createNewElement } from "./components/filter.mjs";
 import { filterPost } from "./components/filter.mjs";
 
 
@@ -123,7 +124,7 @@ closeModalButton.addEventListener("click", () => {
 });
 
 
-
+createNewElement();
 displayFilteredPosts();
 addViewPostListeners();
 filterPost();

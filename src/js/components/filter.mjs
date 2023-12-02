@@ -1,4 +1,24 @@
 /**
+ * Create a new HTML element with the specified attributes.
+ * @param {string} tagName - The HTML tag name of the element.
+ * @param {Object} attributes - An object containing attribute-value pairs for the element.
+ * @returns {HTMLElement} - The created HTML element.
+ */
+export function createNewElement(tagName, attributes) {
+    const element = document.createElement(tagName);
+
+    if (attributes) {
+        for (const [key, value] of Object.entries(attributes)) {
+            element.setAttribute(key, value);
+        }
+    }
+
+    return element;
+}
+
+
+
+/**
  * Filter and display posts based on the search input value.
  */
 export function displayFilteredPosts(data) {
