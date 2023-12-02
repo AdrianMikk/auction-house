@@ -1,10 +1,7 @@
-// import { apiFetch } from "./API/apiFetch.mjs";
-// import { createNewElement } from "./utils/createNewElement.mjs";
-// import { createNewPost } from "./components/createPost.mjs";
-// import { addEditPostListeners } from "./components/editposts.js";
-// import { addDeletePostListeners } from "./components/deletepost.js";
 import { search } from "./components/search.mjs";
-// import { displayPosts } from "./fetchAndDisplay.js";s
+import { displayFilteredPosts } from "./components/filter.mjs";
+import { filterPost } from "./components/filter.mjs";
+
 
 const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
 const postFeedContainer = document.getElementById("postFeed");
@@ -110,6 +107,7 @@ function addViewPostListeners(data) {
                 modalTitle.textContent = post.title;
                 modalBody.textContent = post.body;
                 modalImage.src = post.media;
+                const postModal = document.getElementById("postModal");
                 postModal.style.display = "block";
             } else {
                 alert("Post not found.");
@@ -120,39 +118,18 @@ function addViewPostListeners(data) {
 
 const closeModalButton = document.getElementById("closeModalButton");
 closeModalButton.addEventListener("click", () => {
+    const postModal = document.getElementById("postModal");
     postModal.style.display = "none";
 });
 
-/**
- * Filters posts by date based on user selection.
- *
- * This function attaches event listeners to two HTML elements, typically used for
- * filtering posts by date: "Newest Posts" and "Oldest Posts" buttons. When a user clicks
- * on one of these buttons, the function either fetches and displays posts or sorts the
- * existing posts by their creation date and displays the filtered results.
- */
-async function filterPost() {
-    const dropdownMenu = document.getElementById("dropdownMenu");
-    const filterNewPost = document.getElementById("newestPost");
-    const filterOldPost = document.getElementById("oldestPost");
 
-    filterNewPost.addEventListener("click", (e) => {
-        fetchAndDisplayPosts();
-    });
 
-    filterOldPost.addEventListener("click", (e) => {
-        const postsDesc = data.sort(
-            (a, b) => new Date(a.created) - new Date(b.created)
-        );
-        displayFilteredPosts(postsDesc);
-    });
-}
-
-filterPost();
-
+displayFilteredPosts();
 addViewPostListeners();
-
+filterPost();
 init();
+
+
 
 
 
