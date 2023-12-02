@@ -11027,15 +11027,12 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-.navbar, #login-register-btn, #register-btn {
+.navbar, #btn, #loginRegisterBtn, #registerBtn,
+#closeBtn, footer {
   background-color: #759395;
 }
 
-#login-register-btn, #register-btn {
-  color: black;
-}
-
-footer {
+#closeBtn, footer {
   background-color: #856866;
 }
 

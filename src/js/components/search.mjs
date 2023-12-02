@@ -17,14 +17,7 @@ const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings?_author=true
  * @returns {Promise<void>} A Promise that resolves when the search and display
  * process is completed.
  */
-export async function search() {
-    const options = {
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-        },
-    };
-    const postData = await apiFetch(fullPostURL, options);
+export function search(allAuctions) {
     const searchValue = searchInput.value.toLowerCase();
-    const filteredData = postData.filter((post) => post.title.toLowerCase().includes(searchValue));
-    fetchAllAuctions(filteredData);
+    return allAuctions.filter((post) => post.title.toLowerCase().includes(searchValue));
 }

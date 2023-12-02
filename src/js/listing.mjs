@@ -16,7 +16,9 @@ searchInput.addEventListener("input", search);
 const API_BASE_URL = "https://api.noroff.dev/api/v1/auction/";
 const listing_endpoint = "listings";
 
-export async function fetchAllAuctions(url) {
+export async function fetchAllAuctions() {
+    const allAuctionsUrl = `${API_BASE_URL}${listing_endpoint}`;
+
     try {
         const fetchAllAuctionsOptions = {
             method: "GET",
@@ -25,7 +27,7 @@ export async function fetchAllAuctions(url) {
             },
         };
 
-        const response = await fetch(url, fetchAllAuctionsOptions);
+        const response = await fetch(allAuctionsUrl, fetchAllAuctionsOptions);
 
         if (!response.ok) {
             throw new Error(`Error: ${response.statusText}`);
@@ -40,18 +42,26 @@ export async function fetchAllAuctions(url) {
 }
 
 async function init() {
-    try {
-        const allAuctions = `${API_BASE_URL}${listing_endpoint}`;
-        const json = await fetchAllAuctions(allAuctions);
+    const allAuctions = await fetchAllAuctions();
 
-        console.log("All Auctions:", json);
+    allAuctions.forEach((auction) => {
+        createPostCard(auction);
+    });
 
-        json.forEach((post) => {
+    searchInput.addEventListener("input", () => {
+        const searchResult = search(allAuctions);
+
+        clearPostFeed();
+
+        if (!searchResult || searchResult.length === 0) {
+            console.log("handle error...");
+            return;
+        }
+
+        searchResult.forEach((post) => {
             createPostCard(post);
         });
-    } catch (error) {
-        console.error("Error fetching all auctions:", error.message);
-    }
+    });
 }
 
 function createPostCard(post) {
@@ -125,7 +135,7 @@ closeModalButton.addEventListener("click", () => {
 
 
 createNewElement();
-displayFilteredPosts();
+// displayFilteredPosts();
 addViewPostListeners();
 filterPost();
 init();

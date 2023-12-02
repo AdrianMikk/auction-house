@@ -1,8 +1,6 @@
 @import "./variables/colorTheme";
 @import "./variables/fonts";
 @import "~bootstrap/scss/bootstrap";
-@import "./contact";
-@import "./about";
 
 .navbar, #btn, #loginRegisterBtn, #registerBtn,
 #closeBtn, footer {
@@ -30,4 +28,3 @@
 .sell-container, #fullName, #email, #subject, #message {
   background-color: $background-white;
 }
-
