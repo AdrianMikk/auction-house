@@ -85,22 +85,31 @@ export function displayFilteredPosts(data) {
  * existing posts by their creation date and displays the filtered results.
  */
 export async function filterPost(data) {
-    const dropdownMenu = document.getElementById("dropdownMenu");
+    console.log("Data:", data);
+
     const filterNewPost = document.getElementById("newestPost");
     const filterOldPost = document.getElementById("oldestPost");
 
     filterNewPost.addEventListener("click", (e) => {
-        const postsAsc = data.sort(
-            (a, b) => new Date(b.created) - new Date(a.created)
-        );
-        displayFilteredPosts(postsAsc);
+        if (Array.isArray(data)) {
+            const postsAsc = data.sort(
+                (a, b) => new Date(b.created) - new Date(a.created)
+            );
+            displayFilteredPosts(postsAsc);
+        } else {
+            console.error("Data is not an array.");
+        }
     });
 
     filterOldPost.addEventListener("click", (e) => {
-        const postsDesc = data.sort(
-            (a, b) => new Date(a.created) - new Date(b.created)
-        );
-        displayFilteredPosts(postsDesc);
+        if (Array.isArray(data)) {
+            const postsDesc = data.sort(
+                (a, b) => new Date(a.created) - new Date(b.created)
+            );
+            displayFilteredPosts(postsDesc);
+        } else {
+            console.error("Data is not an array.");
+        }
     });
 }
 
