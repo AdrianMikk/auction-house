@@ -3,7 +3,7 @@ import { displayFilteredPosts } from "./components/filter.mjs";
 import { createNewElement } from "./components/filter.mjs";
 import { filterPost } from "./components/filter.mjs";
 // import { addEditPostListeners } from "./components/editPost.js";
-// import { addViewPostListeners } from "./components/viewPost.js";
+import { addViewPostListeners } from "./components/viewPost.js";
 
 const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
 const postFeedContainer = document.getElementById("postFeed");
@@ -71,6 +71,27 @@ function createPostCard(post) {
         return;
     }
 
+    const viewModalButton = document.createElement("button");
+    viewModalButton.classList.add("btn", "btn-primary", "m-auto", "view-post");
+    viewModalButton.textContent = "View Post";
+    viewModalButton.setAttribute("data-bs-toggle", "modal");
+    viewModalButton.setAttribute("data-bs-target", "#postModal");
+    viewModalButton.setAttribute("data-post-id", post.id);
+
+    viewModalButton.addEventListener("click", () => {
+        const modalTitle = document.getElementById("modalTitle");
+        const modalBody = document.getElementById("modalBody");
+        const modalImage = document.getElementById("modalImage");
+        const postIdElement = document.getElementById("postId");
+
+        modalTitle.textContent = post.title;
+        modalBody.textContent = post.description;
+        modalImage.src = post.media;
+        postIdElement.textContent = "Post ID: " + post.id;
+
+        postModal.style.display = "block";
+    });
+
     const card = document.createElement("div");
     card.classList.add("card");
 
@@ -78,7 +99,7 @@ function createPostCard(post) {
     titleElement.textContent = post.title || "No Title";
 
     const bodyElement = document.createElement("p");
-    bodyElement.textContent = post.body || "No content";
+    bodyElement.textContent = post.description || "No content";
 
     card.classList.add("col-12", "col-md-6", "col-lg-4", "mb-4");
     const imageUrl = post.media || "https://via.placeholder.com/300";
@@ -89,6 +110,7 @@ function createPostCard(post) {
 
     card.appendChild(image);
     card.appendChild(titleElement);
+    card.appendChild(viewModalButton);
     card.appendChild(bodyElement);
 
     postFeedContainer.appendChild(card);
@@ -102,7 +124,7 @@ function clearPostFeed() {
 
 createNewElement();
 // displayFilteredPosts();
-// addViewPostListeners();
+addViewPostListeners();
 // addEditPostListeners();
 // addDeletePostListeners();
 filterPost();

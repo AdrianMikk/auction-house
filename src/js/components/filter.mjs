@@ -113,5 +113,12 @@ export async function filterPost(data) {
     });
 }
 
+// async function filterPost() {
+    
+//     const filterNewPost = document.getElementById("newestPost");
+//     const filterOldPost = document.getElementById("oldestPost");
+    
+// } 
+
 
 
