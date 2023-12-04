@@ -3,6 +3,7 @@ import { displayFilteredPosts } from "./components/filter.mjs";
 import { createNewElement } from "./components/filter.mjs";
 import { filterPost } from "./components/filter.mjs";
 import { addViewPostListeners } from "./components/viewPost.js";
+// import { createNewPost } from "./createPost.mjs";
 // import { addEditPostListeners } from "./components/editPost.js";
 // import { addDeletePostListeners } from "./components/deletePost.js";
 
@@ -138,6 +139,7 @@ function clearPostFeed() {
 }
 
 createNewElement();
+// createNewPost();
 // displayFilteredPosts();
 addViewPostListeners();
 // addEditPostListeners();

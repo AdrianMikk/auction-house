@@ -1,6 +1,3 @@
-import { apiFetch } from '../API/apiFetch.mjs';
-import { fetchAllAuctions } from '../listing.mjs';
-
 const accessToken = localStorage.getItem("accessToken");
 const searchInput = document.getElementById("search");
 const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings?_author=true";

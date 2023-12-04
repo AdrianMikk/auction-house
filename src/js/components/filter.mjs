@@ -1,5 +1,3 @@
-import { fetchAllAuctions } from "../listing.mjs";
-
 /**
  * Create a new HTML element with the specified attributes.
  * @param {string} tagName - The HTML tag name of the element.
