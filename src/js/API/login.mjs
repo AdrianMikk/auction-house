@@ -59,7 +59,7 @@ export async function loginEvent(event) {
     const result = await apiFetch(API_SOCIAL_LOGIN_URL, loginOption);
 
     setToken(result);
-    console.log(result);
+    // console.log(result);
 };
 
 /**

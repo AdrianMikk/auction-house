@@ -43,7 +43,7 @@ h6 {
   color: #333;
 }
 
-.navbar, #btn, #loginRegisterBtn, #registerBtn,
+.navbar, #btn, #loginRegisterBtn, #registerBtn, #avatarBtn,
 #closeBtn, footer {
   background-color: #759395;
 }

@@ -1,7 +1,7 @@
 import { search } from "./components/search.mjs";
 import { displayFilteredPosts } from "./components/filter.mjs";
 import { createNewElement } from "./components/filter.mjs";
-import { filterPost } from "./components/filter.mjs";
+// import { filterPost } from "./components/filter.mjs";
 import { addViewPostListeners } from "./components/viewPost.js";
 // import { createNewPost } from "./createPost.mjs";
 // import { addEditPostListeners } from "./components/editPost.js";
@@ -13,6 +13,7 @@ const searchInput = document.getElementById("search");
 
 // Modal
 const postModal = document.getElementById("postModal");
+const postBidModal = document.getElementById("postBidModal");
 
 searchInput.addEventListener("input", search);
 
