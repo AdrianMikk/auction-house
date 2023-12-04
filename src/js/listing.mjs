@@ -2,7 +2,8 @@ import { search } from "./components/search.mjs";
 import { displayFilteredPosts } from "./components/filter.mjs";
 import { createNewElement } from "./components/filter.mjs";
 import { filterPost } from "./components/filter.mjs";
-
+// import { addEditPostListeners } from "./components/editPost.js";
+// import { addViewPostListeners } from "./components/viewPost.js";
 
 const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
 const postFeedContainer = document.getElementById("postFeed");
@@ -99,9 +100,11 @@ function clearPostFeed() {
     }
 }
 
-
 createNewElement();
 // displayFilteredPosts();
+// addViewPostListeners();
+// addEditPostListeners();
+// addDeletePostListeners();
 filterPost();
 init();
 

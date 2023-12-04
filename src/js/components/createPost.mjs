@@ -1,4 +1,4 @@
-import { fetchAndDisplayPosts } from "../posts.js";
+import { fetchAllAuctions } from "../listing.mjs";
 import { apiFetch } from "../API/apiFetch.mjs";
 
 const fullPostURL = "https://api.noroff.dev/api/v1/social/posts";
@@ -19,7 +19,7 @@ export async function createNewPost(options) {
         const response = await apiFetch(fullPostURL, options);
 
         if (response && response.id) {
-            fetchAndDisplayPosts();
+            fetchAllAuctions();
             createPostForm.reset();
         } else {
             alert("Failed to create the post.");

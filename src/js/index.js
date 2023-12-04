@@ -32,4 +32,3 @@ function checkIfLoggedIn() {
 }
 // checkIfLoggedIn();
 
-console.log("Hello world!");
