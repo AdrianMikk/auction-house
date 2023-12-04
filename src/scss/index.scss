@@ -1,7 +1,6 @@
 @import "./variables/colorTheme";
 @import "./variables/fonts";
 @import "./listingModal.scss";
-@import "~bootstrap/scss/bootstrap";
 
 .navbar, #btn, #loginRegisterBtn, #registerBtn,
 #closeBtn, footer {
@@ -26,7 +25,7 @@
   }
 }
 
-.sell-container, #fullName, #email, #subject, #message {
+#fullName, #email, #subject, #message, #itemName, #itemDescription, #itemPrice, #itemTags, #newPostImageInput {
   background-color: $background-white;
   border-radius: 1rem;
 }

@@ -2,8 +2,9 @@ import { search } from "./components/search.mjs";
 import { displayFilteredPosts } from "./components/filter.mjs";
 import { createNewElement } from "./components/filter.mjs";
 import { filterPost } from "./components/filter.mjs";
-// import { addEditPostListeners } from "./components/editPost.js";
 import { addViewPostListeners } from "./components/viewPost.js";
+// import { addEditPostListeners } from "./components/editPost.js";
+// import { addDeletePostListeners } from "./components/deletePost.js";
 
 const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
 const postFeedContainer = document.getElementById("postFeed");
@@ -71,50 +72,64 @@ function createPostCard(post) {
         return;
     }
 
-    const viewModalButton = document.createElement("button");
-    viewModalButton.classList.add("btn", "btn-primary", "m-auto", "view-post");
-    viewModalButton.textContent = "View Post";
-    viewModalButton.setAttribute("data-bs-toggle", "modal");
-    viewModalButton.setAttribute("data-bs-target", "#postModal");
-    viewModalButton.setAttribute("data-post-id", post.id);
+    // View Post Button
+    const viewModalButton = createButton("View Post", "modalTitle", "modalBody", "modalImage", "postId", post);
 
-    viewModalButton.addEventListener("click", () => {
-        const modalTitle = document.getElementById("modalTitle");
-        const modalBody = document.getElementById("modalBody");
-        const modalImage = document.getElementById("modalImage");
-        const postIdElement = document.getElementById("postId");
+    // Bid Now Button
+    const bidNowButton = createButton("Bid Now", "bidModalTitle", "bidModalBody", "bidModalImage", "bidPostId", post);
+
+    const card = document.createElement("div");
+    card.classList.add("card", "mb-4");
+
+    const titleElement = document.createElement("h2");
+    titleElement.textContent = post.title || "No Title";
+    titleElement.classList.add("mb-2");
+
+    const bodyElement = document.createElement("p");
+    bodyElement.textContent = post.description || "No content";
+    bodyElement.classList.add("mb-3");
+
+    card.classList.add("col-12", "col-md-6", "col-lg-4");
+    const imageUrl = post.media || "https://via.placeholder.com/300";
+    const image = document.createElement("img");
+    image.src = imageUrl;
+    image.alt = post.title || "Image Alt Text";
+    image.classList.add("card-img-top", "mb-3");
+
+    card.appendChild(image);
+    card.appendChild(titleElement);
+    card.appendChild(viewModalButton);
+    card.appendChild(bidNowButton);
+    card.appendChild(bodyElement);
+
+    postFeedContainer.appendChild(card);
+}
+
+function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post) {
+    const button = document.createElement("button");
+    button.classList.add("btn", "btn-primary", "m-auto", "view-post", "mb-3");
+    button.textContent = text;
+    button.setAttribute("data-bs-toggle", "modal");
+    button.setAttribute("data-bs-target", "#postModal");
+
+    button.addEventListener("click", () => {
+        const modalTitle = document.getElementById(modalTitleId);
+        const modalBody = document.getElementById(modalBodyId);
+        const modalImage = document.getElementById(modalImageId);
+        const postIdElement = document.getElementById(postIdId);
 
         modalTitle.textContent = post.title;
         modalBody.textContent = post.description;
         modalImage.src = post.media;
         postIdElement.textContent = "Post ID: " + post.id;
 
+
         postModal.style.display = "block";
     });
 
-    const card = document.createElement("div");
-    card.classList.add("card");
-
-    const titleElement = document.createElement("h2");
-    titleElement.textContent = post.title || "No Title";
-
-    const bodyElement = document.createElement("p");
-    bodyElement.textContent = post.description || "No content";
-
-    card.classList.add("col-12", "col-md-6", "col-lg-4", "mb-4");
-    const imageUrl = post.media || "https://via.placeholder.com/300";
-    const image = document.createElement("img");
-    image.src = imageUrl;
-    image.alt = post.title || "Image Alt Text";
-    image.classList.add("card-img-top");
-
-    card.appendChild(image);
-    card.appendChild(titleElement);
-    card.appendChild(viewModalButton);
-    card.appendChild(bodyElement);
-
-    postFeedContainer.appendChild(card);
+    return button;
 }
+
 
 function clearPostFeed() {
     while (postFeedContainer.firstChild) {
@@ -127,7 +142,7 @@ createNewElement();
 addViewPostListeners();
 // addEditPostListeners();
 // addDeletePostListeners();
-filterPost();
+// filterPost();
 init();
 
 

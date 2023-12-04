@@ -1,3 +1,5 @@
+import { fetchAllAuctions } from "../listing.mjs";
+
 /**
  * Create a new HTML element with the specified attributes.
  * @param {string} tagName - The HTML tag name of the element.
@@ -84,41 +86,110 @@ export function displayFilteredPosts(data) {
  * on one of these buttons, the function either fetches and displays posts or sorts the
  * existing posts by their creation date and displays the filtered results.
  */
-export async function filterPost(data) {
-    console.log("Data:", data);
+// export async function filterPost(data) {
+//     console.log("Data:", data);
 
-    const filterNewPost = document.getElementById("newestPost");
-    const filterOldPost = document.getElementById("oldestPost");
-
-    filterNewPost.addEventListener("click", (e) => {
-        if (Array.isArray(data)) {
-            const postsAsc = data.sort(
-                (a, b) => new Date(b.created) - new Date(a.created)
-            );
-            displayFilteredPosts(postsAsc);
-        } else {
-            console.error("Data is not an array.");
-        }
-    });
-
-    filterOldPost.addEventListener("click", (e) => {
-        if (Array.isArray(data)) {
-            const postsDesc = data.sort(
-                (a, b) => new Date(a.created) - new Date(b.created)
-            );
-            displayFilteredPosts(postsDesc);
-        } else {
-            console.error("Data is not an array.");
-        }
-    });
-}
-
-// async function filterPost() {
-    
 //     const filterNewPost = document.getElementById("newestPost");
 //     const filterOldPost = document.getElementById("oldestPost");
-    
-// } 
+
+//     filterNewPost.addEventListener("click", (e) => {
+//         if (Array.isArray(data)) {
+//             const postsAsc = data.sort(
+//                 (a, b) => new Date(b.created) - new Date(a.created)
+//             );
+//             displayFilteredPosts(postsAsc);
+//         } else {
+//             console.error("Data is not an array.");
+//         }
+//     });
+
+//     filterOldPost.addEventListener("click", (e) => {
+//         if (Array.isArray(data)) {
+//             const postsDesc = data.sort(
+//                 (a, b) => new Date(a.created) - new Date(b.created)
+//             );
+//             displayFilteredPosts(postsDesc);
+//         } else {
+//             console.error("Data is not an array.");
+//         }
+//     });
+// }
+
+export async function filterPost() {
+    try {
+        const listings = await fetchAllAuctions();
+        const filterNewPost = document.getElementById("newestPost");
+        const filterOldPost = document.getElementById("oldestPost");
+
+        filterNewPost.addEventListener("click", (e) => {
+            const postsAsc = listings.sort(
+                (a, b) => new Date(b.created) - new Date(a.created)
+            );
+            fetchAllAuctions(postsAsc);
+        });
+
+        filterOldPost.addEventListener("click", (e) => {
+            const postsDesc = listings.sort(
+                (a, b) => new Date(a.created) - new Date(b.created)
+            );
+            fetchAllAuctions(postsDesc);
+        });
+    } catch (error) {
+        console.error("Error fetching or processing posts:", error);
+    }
+}
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     const filterNewPost = document.getElementById("newestPost");
+//     const filterOldPost = document.getElementById("oldestPost");
+//     const filterDropdown = document.getElementById("filterDropdown");
+//     const postContainer = document.getElementById("postContainer");
+
+//     // Sample posts data
+//     const posts = [
+//         { title: "Post 1", date: "2023-01-01" },
+//         { title: "Post 2", date: "2023-02-15" },
+//         { title: "Post 3", date: "2023-03-10" },
+//         // Add more posts as needed
+//     ];
+
+//     // Function to render posts based on the selected filter
+//     export function filterPost(filterType) {
+//         // Implement your logic to filter and render posts
+//         const sortedPosts = posts.slice().sort((a, b) => {
+//             if (filterType === "newest") {
+//                 return new Date(b.date) - new Date(a.date);
+//             } else if (filterType === "oldest") {
+//                 return new Date(a.date) - new Date(b.date);
+//             }
+//         });
+
+//         // Clear existing posts
+//         postContainer.innerHTML = "";
+
+//         // Render the sorted posts
+//         sortedPosts.forEach(post => {
+//             const postElement = document.createElement("div");
+//             postElement.classList.add("post");
+//             postElement.textContent = `${post.title} - Date: ${post.date}`;
+//             postContainer.appendChild(postElement);
+//         });
+//     }
+
+//     // Event listener for the filter dropdown
+//     filterDropdown.addEventListener("change", function () {
+//         const selectedFilter = filterDropdown.value;
+//         filterPost(selectedFilter);
+//     });
+
+//     // Initial render (you may choose "newest" or "oldest" as the default filter)
+//     renderPosts("newest");
+// });
+
+
+
+
+
 
 
 
