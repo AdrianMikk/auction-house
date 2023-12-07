@@ -21,7 +21,8 @@ fetch(`${API_BASE_URL}user/${userId}/credit`)
     });
 
 button.addEventListener("click", () => {
-    const avatarButton = document.getElementById("avatarButton");
+    const avatarButton = document.getElementById("avatarBtn");
+    const button = document.getElementById("button");
 
-    postModal.style.display = "block";
+
 });

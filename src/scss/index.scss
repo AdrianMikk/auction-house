@@ -3,7 +3,7 @@
 @import "./listingModal.scss";
 
 .navbar, #btn, #loginRegisterBtn, #registerBtn, #avatarBtn,
-#closeBtn, footer {
+#closeBtn, #createListingBtn, footer {
   background-color: $primary;
 }
 
@@ -25,7 +25,7 @@
   }
 }
 
-#fullName, #email, #subject, #message, #itemName, #itemDescription, #itemPrice, #itemTags, #newPostImageInput {
+#fullName, #email, #subject, #message, #itemName, #itemDescription, #itemPrice, #itemTags, #newPostImageInput, #endsAt {
   background-color: $background-white;
   border-radius: 1rem;
 }

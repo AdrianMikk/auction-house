@@ -27,7 +27,7 @@ export function addViewPostListeners(post) {
     });
 }
 
-const closeModalButton = document.getElementById("closeModalButton");
-closeModalButton.addEventListener("click", () => {
-    postModal.style.display = "none";
-});
+// const closeModalButton = document.getElementById("closeModalButton");
+// closeModalButton.addEventListener("click", () => {
+//     postModal.style.display = "none";
+// });

@@ -9,8 +9,6 @@ console.log("Access Token:", token);
 const loginRegisterButton = document.querySelector("#loginRegisterBtn");
 const registerButton = document.querySelector("#registerBtn");
 
-const API_BASE_URL = "https://api.noroff.dev";
-
 loginRegisterButton.addEventListener("click", loginEvent);
 registerButton.addEventListener("click", registerEvent);
 
@@ -30,5 +28,5 @@ function checkIfLoggedIn() {
     if (userId && token)
         window.location.replace(`/profile.html?=${userId}`);
 }
-// checkIfLoggedIn();
+checkIfLoggedIn();
 

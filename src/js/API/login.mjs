@@ -13,22 +13,29 @@ profileLink.addEventListener("click", (event) => {
     }
 });
 
-
-
 function setToken(result) {
     if (result.accessToken) {
         localStorage.setItem("accessToken", result.accessToken);
         localStorage.setItem("email", result.email);
         localStorage.setItem("name", result.name);
-        window.location.href = "/listings.html"
-    } else {
-        alert("Enter correct email and password")
-        throw new Error("Access token not found in the response.")
-    }
-};
+        localStorage.setItem("userCredit", result.userCredit);
 
-const API_SOCIAL_LOGIN_PATH = "/auction/auth/login";
-const API_SOCIAL_LOGIN_URL = `${API_BASE_URL}${API_SOCIAL_LOGIN_PATH}`;
+        const userCreditElement = document.querySelector("#userCredit");
+
+        if (userCreditElement) {
+            userCreditElement.textContent = result.userCredit;
+        }
+
+        window.location.href = "/listings.html";
+    } else {
+        alert("Enter correct email and password");
+        throw new Error("Access token not found in the response.");
+    }
+}
+
+
+const API_AUCTION_LOGIN_PATH = "/auction/auth/login";
+const API_AUCTION_LOGIN_URL = `${API_BASE_URL}${API_AUCTION_LOGIN_PATH}`;
 
 /**
  * Handles the login event when a form is submitted.
@@ -56,7 +63,7 @@ export async function loginEvent(event) {
     };
 
 
-    const result = await apiFetch(API_SOCIAL_LOGIN_URL, loginOption);
+    const result = await apiFetch(API_AUCTION_LOGIN_URL, loginOption);
 
     setToken(result);
     // console.log(result);

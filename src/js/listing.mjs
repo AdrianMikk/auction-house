@@ -1,24 +1,25 @@
 import { search } from "./components/search.mjs";
-import { displayFilteredPosts } from "./components/filter.mjs";
-import { createNewElement } from "./components/filter.mjs";
-// import { filterPost } from "./components/filter.mjs";
+// import { displayFilteredPosts } from "./components/filter.mjs";
+// import { createNewElement } from "./components/filter.mjs";
+import { filterPost } from "./components/filter.mjs";
 import { addViewPostListeners } from "./components/viewPost.js";
-// import { createNewPost } from "./createPost.mjs";
+// import { handleCreatePost } from "./components/createListing.mjs";
+// import { createNewPost } from "./components/createListing.mjs";
 // import { addEditPostListeners } from "./components/editPost.js";
 // import { addDeletePostListeners } from "./components/deletePost.js";
+
 
 const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
 const postFeedContainer = document.getElementById("postFeed");
 const searchInput = document.getElementById("search");
 
-// Modal
-const postModal = document.getElementById("postModal");
-const postBidModal = document.getElementById("postBidModal");
-
-searchInput.addEventListener("input", search);
-
 const API_BASE_URL = "https://api.noroff.dev/api/v1/auction/";
 const listing_endpoint = "listings";
+
+// const postFeedContainer = document.getElementById("postFeed");
+// const searchInput = document.getElementById("search");
+
+searchInput.addEventListener("input", search);
 
 export async function fetchAllAuctions() {
     const allAuctionsUrl = `${API_BASE_URL}${listing_endpoint}`;
@@ -46,27 +47,54 @@ export async function fetchAllAuctions() {
 }
 
 async function init() {
-    const allAuctions = await fetchAllAuctions();
+    try {
+        const allAuctions = await fetchAllAuctions();
 
-    allAuctions.forEach((auction) => {
-        createPostCard(auction);
-    });
+        const sortedPosts = allAuctions.sort((a, b) => new Date(b.created) - new Date(a.created));
 
-    searchInput.addEventListener("input", () => {
-        const searchResult = search(allAuctions);
-
-        clearPostFeed();
-
-        if (!searchResult || searchResult.length === 0) {
-            console.log("handle error...");
-            return;
-        }
-
-        searchResult.forEach((post) => {
-            createPostCard(post);
+        sortedPosts.forEach((auction) => {
+            createPostCard(auction);
         });
-    });
+
+        searchInput.addEventListener("input", () => {
+            const searchResult = search(sortedPosts);
+
+            clearPostFeed();
+
+            if (!searchResult || searchResult.length === 0) {
+                console.log("handle error...");
+                return;
+            }
+
+            searchResult.forEach((post) => {
+                createPostCard(post);
+            });
+        });
+    } catch (error) {
+        console.error("Error:", error);
+    }
 }
+
+
+
+// function createPostCard(post) {
+//     // Create post card elements (similar to your original createPostCard function)
+//     // Use post data to populate card elements
+//     // Append card to postFeedContainer
+// }
+
+// function search(posts) {
+//     // Implement search functionality (if needed)
+//     // Return filtered posts based on search criteria
+// }
+
+function clearPostFeed() {
+    while (postFeedContainer.firstChild) {
+        postFeedContainer.removeChild(postFeedContainer.firstChild);
+    }
+}
+
+init();
 
 function createPostCard(post) {
     if (!postFeedContainer) {
@@ -133,21 +161,20 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
 }
 
 
-function clearPostFeed() {
-    while (postFeedContainer.firstChild) {
-        postFeedContainer.removeChild(postFeedContainer.firstChild);
-    }
-}
+// function clearPostFeed() {
+//     while (postFeedContainer.firstChild) {
+//         postFeedContainer.removeChild(postFeedContainer.firstChild);
+//     }
+// }
 
-createNewElement();
+// createNewElement();
 // createNewPost();
+// handleCreatePost();
 // displayFilteredPosts();
 addViewPostListeners();
 // addEditPostListeners();
 // addDeletePostListeners();
-// filterPost();
-init();
-
+filterPost();
 
 
 

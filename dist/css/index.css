@@ -26,10 +26,11 @@ h6 {
   color: #333;
 }
 .modal-content #modalImage {
-  max-width: 100%;
+  max-height: 300px;
+  width: 100%;
   height: auto;
-  border-radius: 5px;
-  margin-bottom: 15px;
+  object-fit: contain;
+  margin: 10px 0;
 }
 .modal-content #closeModalButton {
   font-size: 24px;

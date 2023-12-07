@@ -17,10 +17,11 @@
     }
   
     #modalImage {
-      max-width: 100%;
-      height: auto;
-      border-radius: 5px;
-      margin-bottom: 15px;
+        max-height: 300px;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        margin: 10px 0;
     }
   
     #closeModalButton {

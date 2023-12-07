@@ -29,7 +29,7 @@
                 <div class="collapse navbar-collapse order-lg-1 justify-content-between" id="navbarColor01">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item ml-3">
-                            <a class="nav-link d-flex fs-5" href="/listings.html">Buy</a>
+                            <a class="nav-link d-flex fs-5" href="/listings.html">Auction</a>
                         </li>
                         <li class="nav-item ml-3">
                             <a class="nav-link d-flex fs-5" href="/sell.html">Sell</a>
@@ -47,9 +47,6 @@
                         <li class="nav-item active ml-3">
                             <a id="logOut" class="nav-link d-flex fs-5" href="/index.html">Sign Out</a>
                         </li>
-                        <div id="creditDisplay">
-                            <!-- User credit will be displayed here -->
-                        </div>
                     </ul>
                     <form class="form d-flex justify-content-between my-lg-0">
                         <label for="search" class="visually-hidden">Search</label>
@@ -69,17 +66,19 @@
                 <div class="text-center">
                     <img src="/images/profilepic.png" alt="Profile Picture" class="img-fluid rounded-circle mb-3">
                     <h2 class="mb-3">Username_123</h2>
-                    <div class="d-flex justify-content-between">
-                        <p class="text-success">Credits: 500</p>
-                        <p class="text-success">Active Bids: 4</p>
-                    </div>
                     <div>
                         <button class="btn m-3" id="avatarBtn">Change Avatar</button>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-success" id="userCredit">Credits: 500</p>
+                        </div>
+                        <p class="text-success">Active Bids: 4</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="d-flex">
+        <div class="d-flex justify-content-center">
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <img src="/images/adrianna-geo-1rBg5YSi00c-unsplash 1.png" class="card-img-top"
@@ -120,10 +119,18 @@
                     <p>&copy; Copyright 2023</p>
                 </div>
                 <div class="col-md-6 text-md-end d-flex justify-content-between">
-                    <img src="/images/facebook.svg" alt="Logo 1" class="logo">
-                    <img src="/images/insta.svg" alt="Logo 2" class="logo">
-                    <img src="/images/twitter.svg" alt="Logo 3" class="logo">
-                    <img src="/images/discord.svg" alt="Logo 4" class="logo">
+                    <a href="https://www.facebook.com/">
+                        <img src="/images/facebook.svg" alt="Facebook Logo" class="logo">
+                    </a>
+                    <a href="https://www.instagram.com/">
+                        <img src="/images/insta.svg" alt="Instagram Logo" class="logo">
+                    </a>
+                    <a href="https://twitter.com/">
+                        <img src="/images/twitter.svg" alt="Twitter Logo" class="logo">
+                    </a>
+                    <a href="https://discord.com/">
+                        <img src="/images/discord.svg" alt="Discord Logo" class="logo">
+                    </a>
                 </div>
             </div>
         </div>
