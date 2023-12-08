@@ -1,4 +1,3 @@
-import { fetchAllAuctions } from "../listing.mjs";
 import { apiFetch } from "../API/apiFetch.mjs";
 
 const API_BASE_URL = "https://api.noroff.dev/api/v1/";
@@ -14,59 +13,35 @@ export function handleCreatePost() {
     const newEndsAtDate = document.getElementById("endsAt");
 
     const title = newListingName.value;
-    const body = newListingBodyDesc.value;
+    const description = newListingBodyDesc.value;
     const tags = newListingTags.value;
     const media = newListingImage.value;
     const endsAt = newEndsAtDate.value;
 
     const newPostData = {
-        title,
-        body,
-        tags,
-        media,
-        endsAt,
-    };
-
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify(newPostData),
-    };
+        title: title,
+        description: description,
+        tags: [tags],
+        media: [media],
+        endsAt: endsAt
+    }
 
     // createNewPost(options);
     console.log(newPostData);
+    // console.log(options);
+    postListing(fullPostURL, newPostData);
 }
 
-async function postListing(url, data) {
+export async function postListing(url, data) {
     try {
-        const postData = {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${accessToken}`,
-            },
-        };
-
-        const response = await apiFetch(url, postData);
-        const json = await response.json();
-
-        if (!response.ok) {
+        const response = await apiFetch(url, "post", data);
+        console.log(response);
+        if (response.ok) {
             console.log("Added new listing");
-        } else {
-            throw new Error(json.error);
         }
-
-        return json;
     } catch (error) {
-        console.error(error); {
-            console.log(error.name + " " + error.message);
-        }
+        console.log(error.name + " " + error.message);
     }
-    postListing(url, handleCreatePost);
 }
 
 const createListingButton = document.getElementById("createListingBtn");

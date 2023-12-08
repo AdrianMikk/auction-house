@@ -4,6 +4,7 @@ import { search } from "./components/search.mjs";
 import { filterPost } from "./components/filter.mjs";
 import { addViewPostListeners } from "./components/viewPost.js";
 // import { handleCreatePost } from "./components/createListing.mjs";
+// import { postListing } from "./components/createListing.mjs";
 // import { createNewPost } from "./components/createListing.mjs";
 // import { addEditPostListeners } from "./components/editPost.js";
 // import { addDeletePostListeners } from "./components/deletePost.js";
@@ -15,9 +16,6 @@ const searchInput = document.getElementById("search");
 
 const API_BASE_URL = "https://api.noroff.dev/api/v1/auction/";
 const listing_endpoint = "listings";
-
-// const postFeedContainer = document.getElementById("postFeed");
-// const searchInput = document.getElementById("search");
 
 searchInput.addEventListener("input", search);
 
@@ -170,6 +168,7 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
 // createNewElement();
 // createNewPost();
 // handleCreatePost();
+// postListing();
 // displayFilteredPosts();
 addViewPostListeners();
 // addEditPostListeners();

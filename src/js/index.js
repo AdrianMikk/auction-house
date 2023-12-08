@@ -9,6 +9,9 @@ console.log("Access Token:", token);
 const loginRegisterButton = document.querySelector("#loginRegisterBtn");
 const registerButton = document.querySelector("#registerBtn");
 
+const loginForm = document.querySelector("#loginForm");
+const registerForm = document.querySelector("#registerForm");
+
 loginRegisterButton.addEventListener("click", loginEvent);
 registerButton.addEventListener("click", registerEvent);
 

@@ -19,7 +19,6 @@ function setToken(result) {
         localStorage.setItem("email", result.email);
         localStorage.setItem("name", result.name);
         localStorage.setItem("userCredit", result.userCredit);
-
         const userCreditElement = document.querySelector("#userCredit");
 
         if (userCreditElement) {
@@ -50,22 +49,32 @@ export async function loginEvent(event) {
 
     const emailInput = document.querySelector("#floatingInput");
     const passwordInput = document.querySelector("#floatingPassword");
+    const emailValue = emailInput.value;
+    const passwordValue = passwordInput.value;
+
+    const userObject = {
+        email: emailValue,
+        password: passwordValue,
+    };
 
     const loginOption = {
         method: "POST",
-        body: JSON.stringify({
-            "email": emailInput.value,
-            "password": passwordInput.value,
-        }),
         headers: {
             "Content-Type": "application/json",
         },
+        body: JSON.stringify(userObject),
     };
 
+    console.log(loginOption);
+    const result = await fetch(API_AUCTION_LOGIN_URL, loginOption);
+    const data = await result.json();
+    console.log(data);
+    console.log(result);
 
-    const result = await apiFetch(API_AUCTION_LOGIN_URL, loginOption);
 
-    setToken(result);
+
+
+    setToken(data);
     // console.log(result);
 };
 
