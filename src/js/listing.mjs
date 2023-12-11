@@ -11,6 +11,7 @@ import { addViewPostListeners } from "./components/viewPost.js";
 
 
 const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
+const bidUrl = fullPostURL + "adrian_mikkelsen/bids";
 const postFeedContainer = document.getElementById("postFeed");
 const searchInput = document.getElementById("search");
 
@@ -20,7 +21,7 @@ const listing_endpoint = "listings";
 searchInput.addEventListener("input", search);
 
 export async function fetchAllAuctions() {
-    const allAuctionsUrl = `${API_BASE_URL}${listing_endpoint}`;
+    const allAuctionsUrl = `${API_BASE_URL}${listing_endpoint}?sort=created`;
 
     try {
         const fetchAllAuctionsOptions = {
@@ -73,19 +74,6 @@ async function init() {
     }
 }
 
-
-
-// function createPostCard(post) {
-//     // Create post card elements (similar to your original createPostCard function)
-//     // Use post data to populate card elements
-//     // Append card to postFeedContainer
-// }
-
-// function search(posts) {
-//     // Implement search functionality (if needed)
-//     // Return filtered posts based on search criteria
-// }
-
 function clearPostFeed() {
     while (postFeedContainer.firstChild) {
         postFeedContainer.removeChild(postFeedContainer.firstChild);
@@ -100,42 +88,88 @@ function createPostCard(post) {
         return;
     }
 
-    // View Post Button
-    const viewModalButton = createButton("View Post", "modalTitle", "modalBody", "modalImage", "postId", post);
+    // Tags 
+    const tags = post.tags;
+    const tagContainer = document.createElement("div");
+    tagContainer.classList.add("tag-container", "mb-3");
+    tagContainer.textContent = "Tags: ";
 
-    // Bid Now Button
-    const bidNowButton = createButton("Bid Now", "bidModalTitle", "bidModalBody", "bidModalImage", "bidPostId", post);
+    // Deadline / endsAt 
+    const endsAt = post.endsAt;
+    const endsAtContainer = document.createElement("div");
+    endsAtContainer.classList.add("endsAt-container", "mb-3");
+    endsAtContainer.textContent = "Deadline: ";
 
     const card = document.createElement("div");
-    card.classList.add("card", "mb-4");
+    card.classList.add("card", "mb-4", "col-12", "col-md-6", "col-lg-4");
 
-    const titleElement = document.createElement("h2");
-    titleElement.textContent = post.title || "No Title";
-    titleElement.classList.add("mb-2");
+    // ID
+    const idElement = document.createElement("p");
+    idElement.textContent = "Post ID: " + post.id;
+    card.appendChild(idElement);
 
-    const bodyElement = document.createElement("p");
-    bodyElement.textContent = post.description || "No content";
-    bodyElement.classList.add("mb-3");
-
-    card.classList.add("col-12", "col-md-6", "col-lg-4");
+    // Image
     const imageUrl = post.media || "https://via.placeholder.com/300";
     const image = document.createElement("img");
     image.src = imageUrl;
     image.alt = post.title || "Image Alt Text";
     image.classList.add("card-img-top", "mb-3");
-
     card.appendChild(image);
+
+    // Title
+    const titleElement = document.createElement("h2");
+    titleElement.textContent = post.title || "No Title";
+    titleElement.classList.add("mb-2");
     card.appendChild(titleElement);
-    card.appendChild(viewModalButton);
-    card.appendChild(bidNowButton);
+
+    // Description
+    const bodyElement = document.createElement("p");
+    bodyElement.textContent = post.description || "No content";
+    bodyElement.classList.add("mb-3");
     card.appendChild(bodyElement);
 
+
     postFeedContainer.appendChild(card);
+    card.appendChild(endsAtContainer);
+    card.appendChild(tagContainer);
+    // Buttons container
+    const buttonsContainer = document.createElement("div");
+    buttonsContainer.classList.add("d-flex");
+
+    // Buttons
+    const viewModalButton = createButton("Bid Now", "modalTitle", "modalBody", "modalImage", "viewPost", post);
+
+    card.appendChild(buttonsContainer);
+    buttonsContainer.appendChild(viewModalButton);
+}
+
+
+const deadline = new Date('2023-12-31 23:59:59').getTime();
+const countdownInterval = setInterval(updateCountdown, 1000);
+
+function updateCountdown(time, elementUpdate) {
+    const end = new Date(time);
+    const now = new Date().getTime();
+    const timeRemaining = deadline - now;
+    const difference = end - now;
+
+    if (timeRemaining <= 0) {
+        document.getElementById('countdown').innerHTML = 'Auction has ended!';
+        clearInterval(countdownInterval);
+    } else {
+        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
 }
 
 function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post) {
     const button = document.createElement("button");
-    button.classList.add("btn", "btn-primary", "m-auto", "view-post", "mb-3");
+    button.classList.add("button", "btn-primary", "m-auto", "view-post", "mb-3", "fs-4");
+    button.id = "viewPost";
     button.textContent = text;
     button.setAttribute("data-bs-toggle", "modal");
     button.setAttribute("data-bs-target", "#postModal");
@@ -151,28 +185,54 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
         modalImage.src = post.media;
         postIdElement.textContent = "Post ID: " + post.id;
 
-
         postModal.style.display = "block";
     });
 
     return button;
 }
 
+function placeBid(event) {
+    event.preventDefault();
 
-// function clearPostFeed() {
-//     while (postFeedContainer.firstChild) {
-//         postFeedContainer.removeChild(postFeedContainer.firstChild);
-//     }
-// }
+    const bid = document.getElementById("bid");
+    const bidValue = bid.value;
 
-// createNewElement();
-// createNewPost();
-// handleCreatePost();
-// postListing();
+    if (!bidValue || isNaN(Number(bidValue))) {
+        console.error("Invalid bid amount");
+        return;
+    }
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            amount: Number(bidValue),
+        }),
+    };
+
+    fetch(bidUrl, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Bid placed successfully:", data);
+        })
+        .catch(error => {
+            console.error("Error placing bid:", error);
+        });
+}
+
+const bidButton = document.getElementById("bidBtn");
+bidButton.addEventListener("click", placeBid);
+
+
 // displayFilteredPosts();
 addViewPostListeners();
-// addEditPostListeners();
-// addDeletePostListeners();
 filterPost();
 
 

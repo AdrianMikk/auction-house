@@ -45,7 +45,7 @@ h6 {
 }
 
 .navbar, #btn, #loginRegisterBtn, #registerBtn, #avatarBtn,
-#closeBtn, #createListingBtn, footer {
+#closeBtn, #createListingBtn, #bidBtn, footer {
   background-color: #759395;
 }
 
@@ -69,4 +69,22 @@ h6 {
 #fullName, #email, #subject, #message, #itemName, #itemDescription, #itemPrice, #itemTags, #newPostImageInput, #endsAt {
   background-color: #E0D7DB;
   border-radius: 1rem;
+}
+
+#viewPost, #bidBtn {
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+#viewPost:hover, #bidBtn:hover {
+  background-color: #759395;
+  color: #E0D7DB;
+}
+
+#avatarText {
+  border-radius: 5px;
+  background-color: #E0D7DB;
+  padding: 5px;
 }/*# sourceMappingURL=index.css.map */

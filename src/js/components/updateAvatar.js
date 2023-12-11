@@ -1,52 +1,41 @@
-const userId = "123";
-const token = "123";
+const base_url = "https://api.noroff.dev/api/v1/auction/profiles";
+const avatar = "/adrian_mikkelsen/media"
+const username = "/adrian_mikkelsen";
+const userName = document.getElementById("name");
+const avatarButton = document.getElementById("avatarBtn");
 
-const API_BASE_URL = "https://api.noroff.dev/";
-const API_USER_PATH = "auction/profiles/<name>/media";
-const API_USER_CREDIT_PATH = "credit";
+const profile_url = "?_listings=true&_bids=true";
+// const url = base_url + username + profile_url;
+const url = base_url + avatar;
+const token = localStorage.getItem("accessToken");
 
-fetch(`${API_BASE_URL}user/${userId}/credit`)
-
-    .then(response => response.json())
-    .then(data => {
-        // Assuming the API response includes a "credit" property
-        const userCredit = data.credit;
-
-        // Display the user's credit on the webpage
-        userCreditDisplay.innerHTML = `<p>Your total credit: $${userCredit}</p>`;
-    })
-    .catch(error => {
-        console.error('Error fetching user credit:', error);
-        userCreditDisplay.innerHTML = '<p>Error fetching user credit. Please try again later.</p>';
-    });
-
-avatarButton.addEventListener("click", () => {
-    const avatarButton = document.getElementById("avatarBtn");
-    fetch(`${API_BASE_URL}${API_USER_PATH}${userId}/avatar`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-            avatar: avatarButton.value,
-        }),
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to update avatar');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Handle successful response (e.g., show a success message)
-            console.log('Avatar updated successfully', data);
-            alert('Avatar updated successfully');
-        })
-        .catch(error => {
-            // Handle errors (e.g., show an error message)
-            console.error('Error updating avatar', error);
-            alert('Error updating avatar');
+export async function updateAvatar(newAvatar) {
+    const updateUrl = base_url + avatar;
+    try {
+        const response = await fetch(updateUrl, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                avatar: newAvatar,
+            }),
         });
 
+        const updatedProfile = await response.json();
+        console.log("Avatar updated successfully:", updatedProfile);
+    } catch (error) {
+        console.error("Error updating avatar");
+        throw error;
+    }
+}
+
+avatarButton.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const newAvatar = document.getElementById("avatarInput").value;
+    console.log(newAvatar);
+    await updateAvatar();
 });
+
+

@@ -5,7 +5,6 @@
  */
 export function addViewPostListeners(post) {
     const viewPostButtons = document.querySelectorAll(".view-post");
-    // const placeBidButton = document.querySelectorAll(".placeBidButton");
     viewPostButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
             const postId = e.target.getAttribute("data-post-id");

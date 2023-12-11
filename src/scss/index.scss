@@ -3,7 +3,7 @@
 @import "./listingModal.scss";
 
 .navbar, #btn, #loginRegisterBtn, #registerBtn, #avatarBtn,
-#closeBtn, #createListingBtn, footer {
+#closeBtn, #createListingBtn, #bidBtn, footer {
   background-color: $primary;
 }
 
@@ -29,3 +29,21 @@
   background-color: $background-white;
   border-radius: 1rem;
 }
+
+#viewPost, #bidBtn {
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    &:hover {
+      background-color: $primary;
+      color: $background-white;
+    }
+  }
+
+  #avatarText {
+    border-radius: 5px;
+    background-color: $background-white;
+    padding: 5px;
+  }

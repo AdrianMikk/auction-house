@@ -3,6 +3,7 @@ import { apiFetch } from "./apiFetch.mjs";
 const API_BASE_URL = "https://api.noroff.dev/api/v1";
 
 const profileLink = document.getElementById("navProfile");
+console.log(profileLink);
 const userName = document.getElementById("userName");
 const token = localStorage.getItem("accessToken");
 
@@ -18,11 +19,12 @@ function setToken(result) {
         localStorage.setItem("accessToken", result.accessToken);
         localStorage.setItem("email", result.email);
         localStorage.setItem("name", result.name);
-        localStorage.setItem("userCredit", result.userCredit);
-        const userCreditElement = document.querySelector("#userCredit");
+        localStorage.setItem("userCredit", result.credits);
+        const userCreditElement = getElementById("#userCredit");
+        console.log(userCreditElement);
 
         if (userCreditElement) {
-            userCreditElement.textContent = result.userCredit;
+            userCreditElement.textContent = result.credits;
         }
 
         window.location.href = "/listings.html";
@@ -71,9 +73,6 @@ export async function loginEvent(event) {
     console.log(data);
     console.log(result);
 
-
-
-
     setToken(data);
     // console.log(result);
 };
@@ -90,4 +89,5 @@ function logOutUser() {
     })
 }
 logOutUser();
+
 

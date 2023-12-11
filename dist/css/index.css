@@ -20,11 +20,13 @@ h6 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
+
 .modal-content #modalTitle {
   font-size: 24px;
   margin-bottom: 10px;
   color: #333;
 }
+
 .modal-content #modalImage {
   max-height: 300px;
   width: 100%;
@@ -32,6 +34,7 @@ h6 {
   object-fit: contain;
   margin: 10px 0;
 }
+
 .modal-content #closeModalButton {
   font-size: 24px;
   position: absolute;
@@ -40,12 +43,13 @@ h6 {
   cursor: pointer;
   color: #555;
 }
+
 .modal-content #closeModalButton:hover {
   color: #333;
 }
 
 .navbar, #btn, #loginRegisterBtn, #registerBtn, #avatarBtn,
-#closeBtn, footer {
+#closeBtn, #createListingBtn, #bidBtn, footer {
   background-color: #759395;
 }
 
@@ -61,14 +65,34 @@ h6 {
   background-color: #759395;
   border-color: #759395;
 }
+
 .btn-primary:hover, .btn-primary:focus {
   background-color: #5d787a;
   border-color: #5d787a;
 }
 
-#fullName, #email, #subject, #message, #itemName, #itemDescription, #itemPrice, #itemTags, #newPostImageInput {
+#fullName, #email, #subject, #message, #itemName, #itemDescription, #itemPrice, #itemTags, #newPostImageInput, #endsAt {
   background-color: #E0D7DB;
   border-radius: 1rem;
 }
+
+#viewPost, #bidBtn {
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+#viewPost:hover, #bidBtn:hover {
+  background-color: #759395;
+  color: #E0D7DB;
+}
+
+#avatarText {
+  border-radius: 5px;
+  background-color: #E0D7DB;
+  padding: 5px;
+} 
 
 /*# sourceMappingURL=index.css.map */
