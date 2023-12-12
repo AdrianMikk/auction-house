@@ -9,7 +9,6 @@ const url = base_url + avatar;
 const token = localStorage.getItem("accessToken");
 const creditsAmount = localStorage.getItem("userCredit");
 document.querySelector("#userCredit").textContent = creditsAmount;
-console.log(creditsAmount);
 
 function updateAvatarUI(newAvatar) {
     const avatarImage = document.getElementById("avatarImage");
@@ -67,12 +66,33 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 export function fetchProfile() {
-    const userName = document.getElementById("userName");
-    const userCredit = document.getElementById("userCredit");
-    const userAvatar = document.getElementById("avatarImage");
-    const token = localStorage.getItem("accessToken");
+    console.log("Fetching profile...");
+    const userNameElement = document.getElementById("userName");
+    const userCreditElement = document.getElementById("userCredit");
+    const userAvatarElement = document.getElementById("avatarImage");
 
+    const userName = localStorage.getItem("name");
+    const userCredit = localStorage.getItem("userCredit");
+    const userAvatar = localStorage.getItem("chosenAvatar");
+
+    console.log("userName:", userName);
+    console.log("userCredit:", userCredit);
+    console.log("userAvatar:", userAvatar);
+
+    if (userNameElement) {
+        userNameElement.textContent = userName || "Guest";
+    }
+
+    if (userCreditElement) {
+        userCreditElement.textContent = userCredit || "0";
+    }
+
+    if (userAvatarElement) {
+        userAvatarElement.src = userAvatar || "default-avatar.jpg";
+    }
 }
+
+
 
 
 

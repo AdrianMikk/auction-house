@@ -89,13 +89,13 @@ function createPostCard(post) {
     const tags = post.tags;
     const tagContainer = document.createElement("div");
     tagContainer.classList.add("tag-container", "mb-3");
-    tagContainer.textContent = "Tags: ";
+    tagContainer.textContent = "Tags: " + (tags ? tags.join(", ") : "No tags");
 
     // Deadline / endsAt 
     const endsAt = post.endsAt;
     const endsAtContainer = document.createElement("div");
     endsAtContainer.classList.add("endsAt-container", "mb-3");
-    endsAtContainer.textContent = "Deadline: ";
+    endsAtContainer.textContent = "Deadline: " + (endsAt ? new Date(endsAt).toLocaleString() : "No deadline");
 
     const card = document.createElement("div");
     card.classList.add("card", "mb-4", "col-12", "col-md-6", "col-lg-4");
@@ -143,6 +143,8 @@ function createPostCard(post) {
     // Append the button to the container
     buttonsContainer.appendChild(viewModalButton);
 
+    card.appendChild(tagContainer);
+    card.appendChild(endsAtContainer);
     card.appendChild(buttonsContainer);
 
     // const bidBtn = document.getElementById("bidBtn");
