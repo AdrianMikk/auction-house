@@ -4,7 +4,7 @@ const API_BASE_URL = "https://api.noroff.dev/api/v1";
 const base_url = "https://api.noroff.dev/api/v1/auction/profiles";
 
 const profileLink = document.getElementById("navProfile");
-console.log(profileLink);
+// console.log(profileLink);
 const userName = document.getElementById("userName");
 const token = localStorage.getItem("accessToken");
 
@@ -21,6 +21,7 @@ export function setToken(result) {
         localStorage.setItem("email", result.email);
         localStorage.setItem("name", result.name);
         localStorage.setItem("userCredit", result.credits);
+        localStorage.setItem("chosenAvatar", result.avatar);
         const userCreditElement = getElementById("#userCredit");
         console.log(userCreditElement);
         if (userCreditElement) {
