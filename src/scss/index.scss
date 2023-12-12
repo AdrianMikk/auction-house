@@ -42,8 +42,40 @@
     }
   }
 
+.button {
+  background-color: $primary;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  &:hover {
+    background-color: $secondary;
+    color: $background-white;
+  }
+
+}
+
+
+// Profile Avatar
   #avatarText {
     border-radius: 5px;
     background-color: $background-white;
     padding: 5px;
   }
+
+// Variables
+$avatarSize: 150px;
+$avatarBorderRadius: 50%;
+
+#avatarImage {
+  width: $avatarSize;
+  height: $avatarSize;
+  border-radius: $avatarBorderRadius;
+  border: 2px solid $primary; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.3s ease-in-out; 
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

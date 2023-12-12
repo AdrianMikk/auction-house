@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Item list for my Auction Site EchoBids">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./src/scss/index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -28,21 +29,21 @@
                 </button>
 
                 <div class="collapse navbar-collapse order-lg-1 justify-content-between" id="navbarColor01">
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto d-flex fs-5">
                         <li class="nav-item ml-3">
-                            <a class="nav-link d-flex active fs-5" href="/listings.html">Auction</a>
+                            <a class="nav-link d-flex" href="/listings.html">Auction</a>
                         </li>
                         <li class="nav-item ml-3">
-                            <a class="nav-link d-flex fs-5" href="/sell.html">Sell</a>
+                            <a class="nav-link" href="/sell.html">Sell</a>
                         </li>
                         <li class="nav-item ml-3">
-                            <a class="nav-link d-flex fs-5" href="/profile.html">Profile</a>
+                            <a class="nav-link" id="navProfile" href="/profile.html">Profile</a>
                         </li>
                         <li class="nav-item ml-3">
-                            <a class="nav-link d-flex fs-5" href="/contact.html">Contact</a>
+                            <a class="nav-link" href="/contact.html">Contact</a>
                         </li>
                         <li class="nav-item ml-3">
-                            <a class="nav-link d-flex fs-5" href="/about.html">About</a>
+                            <a class="nav-link" href="/about.html">About</a>
                         </li>
                     </ul>
                     <form class="form d-flex justify-content-between my-lg-0">
@@ -83,7 +84,6 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <span class="post-id" id="postId"></span>
-                        <span id="closeModalButton" class="close" data-bs-dismiss="viewModal">&times;</span>
                         <h2 id="modalTitle"></h2>
                         <img id="modalImage" class="img-fluid">
                         <p id="modalBody"></p>
@@ -91,12 +91,12 @@
                             <form>
                                 <div class="row">
                                     <div class="col-md-6 mb-2">
-                                        <label for="currentBid" class="form-label">Current Bid:</label>
-                                        <input type="text" class="form-control" id="currentBid" name="currentBid">
+                                        <label for="currentBid" class="form-label" class="form-control"
+                                            id="currentBid">Current Bid:</label>
                                     </div>
                                     <div class="col-md-6 mb-2">
                                         <label for="yourBid" class="form-label">Your Bid:</label>
-                                        <input type="text" class="form-control" id="yourBid" name="yourBid">
+                                        <input type="text" class="form-control" id="yourBid" name="amount">
                                     </div>
                                 </div>
                                 <button type="click" class="mt-2 p-1" id="bidBtn">Place Bid</button>
@@ -111,40 +111,10 @@
             <div class="row mt-3" id="postFeed">
                 <div class="p-2 m-2 fs-2    " id="countdown"></div>
             </div>
-
-            <!-- <a type="button" class="btn" id="viewItemBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                View Item
-            </a> -->
-            <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title fs-5" id="exampleModalLabel">EchoBids</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form id="viewItemForm">
-                                <h5 class="h3 mb-3 fw-normal text-center">Name of Item</h5>
-                                <div class="d-flex justify-content-center">
-                                    <img src="/images/adrianna-geo-1rBg5YSi00c-unsplash 1.png" alt="">
-                                </div>
-                                <p class="p-2 text-center">Description of Item Description of
-                                    ItemDescription of item
-                                </p>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" id="closeBtn"
-                                data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
         </div>
         </div>
         </div>
-
 
     </main>
 

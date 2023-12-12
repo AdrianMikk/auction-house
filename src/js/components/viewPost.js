@@ -14,6 +14,21 @@ export function addViewPostListeners(post) {
                 const modalBody = document.getElementById("modalBody");
                 const modalImage = document.getElementById("modalImage");
                 const postIdElement = document.getElementById("postId");
+                // const tags = document.getElementById("tags");
+                // const postDeadline = document.getElementById("postDeadline");
+                // const postModal = document.getElementById("postModal");
+                // const postDeadlineFormat = postDeadline.toLocaleDateString(
+                //     "no-NO",
+                //     {
+                //         day: "2-digit",
+                //         month: "2-digit",
+                //         year: "2-digit",
+                //         hour: "2-digit",
+                //         minute: "2-digit",
+                //     }
+                // );
+                // tags.textContent = "Tags: " + post.tags;
+                // postDeadline.textContent = "Deadline: " + postDeadlineFormat;
                 postIdElement.textContent = "Post ID: " + postId;
                 modalTitle.textContent = post.title;
                 modalBody.textContent = post.body;
@@ -25,8 +40,3 @@ export function addViewPostListeners(post) {
         });
     });
 }
-
-// const closeModalButton = document.getElementById("closeModalButton");
-// closeModalButton.addEventListener("click", () => {
-//     postModal.style.display = "none";
-// });

@@ -1,15 +1,12 @@
 import { search } from "./components/search.mjs";
-// import { displayFilteredPosts } from "./components/filter.mjs";
 // import { createNewElement } from "./components/filter.mjs";
 import { filterPost } from "./components/filter.mjs";
 import { addViewPostListeners } from "./components/viewPost.js";
 // import { handleCreatePost } from "./components/createListing.mjs";
 // import { postListing } from "./components/createListing.mjs";
 // import { createNewPost } from "./components/createListing.mjs";
-// import { addEditPostListeners } from "./components/editPost.js";
-// import { addDeletePostListeners } from "./components/deletePost.js";
 
-
+const base_url = "https://api.noroff.dev/api/v1/auction/profiles";
 const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
 const bidUrl = fullPostURL + "adrian_mikkelsen/bids";
 const postFeedContainer = document.getElementById("postFeed");
@@ -102,11 +99,13 @@ function createPostCard(post) {
 
     const card = document.createElement("div");
     card.classList.add("card", "mb-4", "col-12", "col-md-6", "col-lg-4");
+    card.id = post.id;
 
     // ID
     const idElement = document.createElement("p");
     idElement.textContent = "Post ID: " + post.id;
-    card.appendChild(idElement);
+    card.classList.add("mb-3");
+    // card.appendChild(idElement);
 
     // Image
     const imageUrl = post.media || "https://via.placeholder.com/300";
@@ -134,16 +133,50 @@ function createPostCard(post) {
     card.appendChild(tagContainer);
     // Buttons container
     const buttonsContainer = document.createElement("div");
-    buttonsContainer.classList.add("d-flex");
+    buttonsContainer.classList.add("d-flex", "flex-column", "rounded", "p-2", "align-items-end");
+    buttonsContainer.id = "bidNowBtn";
 
     // Buttons
     const viewModalButton = createButton("Bid Now", "modalTitle", "modalBody", "modalImage", "viewPost", post);
+    viewModalButton.classList.add("rounded", "mb-3");
+
+    // Append the button to the container
+    buttonsContainer.appendChild(viewModalButton);
 
     card.appendChild(buttonsContainer);
-    buttonsContainer.appendChild(viewModalButton);
+
+    // const bidBtn = document.getElementById("bidBtn");
+    // bidBtn.id = post.id;
+    bidBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        const bidBtn = document.querySelectorAll("#bidBtn");
+        // const bidAmount = document.getElementById("bidAmount").value;
+        // console.log(bidAmount);
+        // placeBid(post.id, bidAmount);
+    });
+
+    function postBid(bidUrl, data) {
+        // Use fetch, axios, or your preferred method to post the bid data to the server
+        fetch(bidUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 }
 
 
+
+// Countdown
 const deadline = new Date('2023-12-31 23:59:59').getTime();
 const countdownInterval = setInterval(updateCountdown, 1000);
 
@@ -168,8 +201,8 @@ function updateCountdown(time, elementUpdate) {
 
 function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post) {
     const button = document.createElement("button");
-    button.classList.add("button", "btn-primary", "m-auto", "view-post", "mb-3", "fs-4");
-    button.id = "viewPost";
+    button.classList.add("button", "btn-primary", "m-auto", "view-post", "mb-3", "fs-5");
+    // button.id = "viewPost";
     button.textContent = text;
     button.setAttribute("data-bs-toggle", "modal");
     button.setAttribute("data-bs-target", "#postModal");
@@ -183,7 +216,6 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
         modalTitle.textContent = post.title;
         modalBody.textContent = post.description;
         modalImage.src = post.media;
-        postIdElement.textContent = "Post ID: " + post.id;
 
         postModal.style.display = "block";
     });
@@ -191,47 +223,21 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
     return button;
 }
 
-function placeBid(event) {
-    event.preventDefault();
 
-    const bid = document.getElementById("bid");
-    const bidValue = bid.value;
-
-    if (!bidValue || isNaN(Number(bidValue))) {
-        console.error("Invalid bid amount");
-        return;
+// BID
+function placeBid(listingId, bidAmount) {
+    const parsedValue = parseInt(bidAmount);
+    const bidData = {
+        amount: parsedValue
     }
-
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            amount: Number(bidValue),
-        }),
-    };
-
-    fetch(bidUrl, options)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Bid placed successfully:", data);
-        })
-        .catch(error => {
-            console.error("Error placing bid:", error);
-        });
+    console.log(bidData);
+    // postBid(bidUrl, bidData);
 }
 
 const bidButton = document.getElementById("bidBtn");
 bidButton.addEventListener("click", placeBid);
 
 
-// displayFilteredPosts();
 addViewPostListeners();
 filterPost();
 

@@ -48,6 +48,7 @@ const createListingButton = document.getElementById("createListingBtn");
 
 createListingButton.addEventListener("click", function () {
     handleCreatePost();
+    // windows.href = "/listings.html";
 });
 
 // const listingDeadlineFormat = listingDeadline.toLocaleDateString(

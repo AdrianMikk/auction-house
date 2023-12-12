@@ -83,8 +83,32 @@ h6 {
   color: #E0D7DB;
 }
 
+.button {
+  background-color: #759395;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+.button:hover {
+  background-color: #856866;
+  color: #E0D7DB;
+}
+
 #avatarText {
   border-radius: 5px;
   background-color: #E0D7DB;
   padding: 5px;
+}
+
+#avatarImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #759395;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+#avatarImage:hover {
+  transform: scale(1.1);
 }/*# sourceMappingURL=index.css.map */
