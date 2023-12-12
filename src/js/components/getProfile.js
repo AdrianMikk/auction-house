@@ -1,12 +1,15 @@
+import { setToken } from "../API/login.mjs";
+
 const base_url = "https://api.noroff.dev/api/v1/auction/profiles";
 const avatar = "/adrian_mikkelsen/media";
-const username = "/adrian_mikkelsen";
-const userName = document.getElementById("name");
 const avatarButton = document.getElementById("avatarBtn");
 
 const profile_url = "?_listings=true&_bids=true";
 const url = base_url + avatar;
 const token = localStorage.getItem("accessToken");
+const creditsAmount = localStorage.getItem("userCredit");
+document.querySelector("#userCredit").textContent = creditsAmount;
+console.log(creditsAmount);
 
 function updateAvatarUI(newAvatar) {
     const avatarImage = document.getElementById("avatarImage");
@@ -64,24 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 export function fetchProfile() {
-    const profileUrl = base_url + username + profile_url;
-    fetch(profileUrl, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            userName.textContent = data.fullName;
-            updateAvatarUI(data.avatar);
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-        });
+    const userName = document.getElementById("userName");
+    const userCredit = document.getElementById("userCredit");
+    const userAvatar = document.getElementById("avatarImage");
+    const token = localStorage.getItem("accessToken");
+
 }
+
+
 
 
 

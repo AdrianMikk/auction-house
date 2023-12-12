@@ -15,7 +15,7 @@ profileLink.addEventListener("click", (event) => {
     }
 });
 
-function setToken(result) {
+export function setToken(result) {
     if (result.accessToken) {
         localStorage.setItem("accessToken", result.accessToken);
         localStorage.setItem("email", result.email);
@@ -23,7 +23,6 @@ function setToken(result) {
         localStorage.setItem("userCredit", result.credits);
         const userCreditElement = getElementById("#userCredit");
         console.log(userCreditElement);
-
         if (userCreditElement) {
             userCreditElement.textContent = result.credits;
         }
@@ -33,8 +32,8 @@ function setToken(result) {
         alert("Enter correct email and password");
         throw new Error("Access token not found in the response.");
     }
+    console.log(result);
 }
-
 
 const API_AUCTION_LOGIN_PATH = "/auction/auth/login";
 const API_AUCTION_LOGIN_URL = `${API_BASE_URL}${API_AUCTION_LOGIN_PATH}`;
