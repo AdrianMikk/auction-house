@@ -113,6 +113,7 @@ function createPostCard(post) {
     image.src = imageUrl;
     image.alt = post.title || "Image Alt Text";
     image.classList.add("card-img-top", "mb-3");
+    image.id = "postImageId";
     card.appendChild(image);
 
     // Title
@@ -179,27 +180,27 @@ function createPostCard(post) {
 
 
 // Countdown
-const deadline = new Date('2023-12-31 23:59:59').getTime();
-const countdownInterval = setInterval(updateCountdown, 1000);
+// const deadline = new Date('2023-12-31 23:59:59').getTime();
+// const countdownInterval = setInterval(updateCountdown, 1000);
 
-function updateCountdown(time, elementUpdate) {
-    const end = new Date(time);
-    const now = new Date().getTime();
-    const timeRemaining = deadline - now;
-    const difference = end - now;
+// function updateCountdown(time, elementUpdate) {
+//     const end = new Date(time);
+//     const now = new Date().getTime();
+//     const timeRemaining = deadline - now;
+//     const difference = end - now;
 
-    if (timeRemaining <= 0) {
-        document.getElementById('countdown').innerHTML = 'Auction has ended!';
-        clearInterval(countdownInterval);
-    } else {
-        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+//     if (timeRemaining <= 0) {
+//         document.getElementById('countdown').innerHTML = 'Auction has ended!';
+//         clearInterval(countdownInterval);
+//     } else {
+//         const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+//         const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//         const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+//         const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-        document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
-}
+//         document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+//     }
+// }
 
 function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post) {
     const button = document.createElement("button");

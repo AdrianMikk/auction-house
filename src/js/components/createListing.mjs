@@ -38,6 +38,7 @@ export async function postListing(url, data) {
         console.log(response);
         if (response.ok) {
             console.log("Added new listing");
+            // window.location.href = "listings.html";
         }
     } catch (error) {
         console.log(error.name + " " + error.message);
@@ -49,14 +50,3 @@ const createListingButton = document.getElementById("createListingBtn");
 createListingButton.addEventListener("click", function () {
     handleCreatePost();
 });
-
-// const listingDeadlineFormat = listingDeadline.toLocaleDateString(
-//     "no-NO",
-//     {
-//         day: "2-digit",
-//         month: "2-digit",
-//         year: "2-digit",
-//         hour: "2-digit",
-//         minute: "2-digit",
-//     }
-// );

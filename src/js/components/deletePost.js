@@ -2,7 +2,7 @@ import { apiFetch } from "../API/apiFetch.mjs";
 import { fetchAllAuctions } from "../listing.mjs";
 
 const API_BASE_URL = "https://api.noroff.dev/api/v1/";
-const fullPostURL = "https://api.noroff.dev/api/v1/auction/";
+const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
 const accessToken = localStorage.getItem("accessToken");
 
 /**

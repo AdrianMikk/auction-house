@@ -14,6 +14,7 @@ export function addViewPostListeners(post) {
                 const modalBody = document.getElementById("modalBody");
                 const modalImage = document.getElementById("modalImage");
                 const postIdElement = document.getElementById("postId");
+                const bidCount = document.getElementById("currentBid");
                 // const tags = document.getElementById("tags");
                 // const postDeadline = document.getElementById("postDeadline");
                 // const postModal = document.getElementById("postModal");
@@ -33,6 +34,7 @@ export function addViewPostListeners(post) {
                 modalTitle.textContent = post.title;
                 modalBody.textContent = post.body;
                 modalImage.src = post.media;
+                bidCount.textContent = "Current bid: " + post.currentBid;
                 postModal.style.display = "block";
             } else {
                 alert("Post not found.");
