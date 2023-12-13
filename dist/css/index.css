@@ -20,11 +20,13 @@ h6 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
+
 .modal-content #modalTitle {
   font-size: 24px;
   margin-bottom: 10px;
   color: #333;
 }
+
 .modal-content #modalImage {
   max-height: 300px;
   width: 100%;
@@ -32,6 +34,7 @@ h6 {
   object-fit: contain;
   margin: 10px 0;
 }
+
 .modal-content #closeModalButton {
   font-size: 24px;
   position: absolute;
@@ -40,6 +43,7 @@ h6 {
   cursor: pointer;
   color: #555;
 }
+
 .modal-content #closeModalButton:hover {
   color: #333;
 }
@@ -61,6 +65,7 @@ h6 {
   background-color: #759395;
   border-color: #759395;
 }
+
 .btn-primary:hover, .btn-primary:focus {
   background-color: #5d787a;
   border-color: #5d787a;
@@ -78,6 +83,7 @@ h6 {
   cursor: pointer;
   transition: all 0.3s ease 0s;
 }
+
 #viewPost:hover, #bidBtn:hover {
   background-color: #759395;
   color: #E0D7DB;
@@ -90,6 +96,7 @@ h6 {
   cursor: pointer;
   transition: all 0.3s ease 0s;
 }
+
 .button:hover {
   background-color: #856866;
   color: #E0D7DB;
@@ -109,8 +116,17 @@ h6 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
 }
+
 #avatarImage:hover {
   transform: scale(1.1);
 }
+
+#postImageId {
+  max-height: 200px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin: 10px 0;
+} 
 
 /*# sourceMappingURL=index.css.map */
