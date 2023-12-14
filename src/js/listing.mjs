@@ -79,7 +79,8 @@ function clearPostFeed() {
 
 init();
 
-function createPostCard(post) {
+
+function createPostCard(post, newId) {
     if (!postFeedContainer) {
         console.error("postFeedContainer not found in the document.");
         return;
@@ -143,22 +144,9 @@ function createPostCard(post) {
     buttonsContainer.id = "bidNowBtn";
 
     // Buttons
-    const viewModalButton = createButton("Bid Now", "modalTitle", "modalBody", "modalImage", "viewPost", post);
+    const listingsId = post.id;
+    const viewModalButton = createButton("View More", "modalTitle", "modalBody", "modalImage", "viewPost", post, listingsId);
     viewModalButton.classList.add("rounded", "mb-3");
-    const bidBtn = document.getElementById("bidBtn");
-    const bidAmount = document.getElementById("bidAmount");
-    viewModalButton.addEventListener("click", () => {
-        bidBtn.id = post.id;
-        bidAmount.id = post.id;
-    });
-
-    const bidSubmit = document.getElementById(`${post.id}`);
-    const bidInput = document.getElementById(`${post.id}`).value;
-    bidSubmit.addEventListener("click", (event) => {
-        event.preventDefault();
-        console.log(bidInput);
-        placeBid(post.id, bidInput);
-    });
 
     // Append the button to the container
     buttonsContainer.appendChild(viewModalButton);
@@ -166,28 +154,39 @@ function createPostCard(post) {
     card.appendChild(tagContainer);
     card.appendChild(endsAtContainer);
     card.appendChild(buttonsContainer);
-
-
-
-    function postBid(bidUrl, data) {
-        // Use fetch, axios, or your preferred method to post the bid data to the server
-        fetch(bidUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(response => response.json())
-            .then(result => {
-                console.log(result);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
 }
 
+function postBid(postId, data) {
+    fetch(`${fullPostURL}/${postId}/bids`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function bidNow(postId) {
+    const listingsId = postId;
+    const bidBtn = document.getElementById("bidBtn");
+    const bidInput = document.getElementById("yourBid");
+    bidBtn.id = "bidBtn";
+
+    bidBtn.addEventListener("click", function (event) {
+        event.preventDefault();
+        postBid(listingsId, { Amount: bidInput.value })
+        console.log("Bid button clicked");
+        console.log(bidInput.value);
+
+    });
+}
 
 function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post) {
     const button = document.createElement("button");
@@ -211,23 +210,6 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
 
     return button;
 }
-
-
-// BID
-
-
-function placeBid(listingId, bidAmount) {
-    const parsedValue = parseInt(bidAmount);
-    const bidData = {
-        amount: parsedValue
-    }
-    console.log(bidData);
-    // postBid(bidUrl, bidData);
-}
-
-// const bidButton = document.getElementById("bidBtn");
-bidButton.addEventListener("click", placeBid);
-
 
 addViewPostListeners();
 filterPost();

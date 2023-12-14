@@ -5,6 +5,10 @@ const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
 const accessToken = localStorage.getItem("accessToken");
 
 export function handleCreatePost() {
+    if (!accessToken) {
+        alert("Please log in to create a listing.");
+        return;
+    }
 
     const newListingName = document.getElementById("itemName");
     const newListingBodyDesc = document.getElementById("itemDescription");
@@ -24,11 +28,8 @@ export function handleCreatePost() {
         tags: [tags],
         media: [media],
         endsAt: endsAt
-    }
+    };
 
-    // createNewPost(options);
-    console.log(newPostData);
-    // console.log(options);
     postListing(fullPostURL, newPostData);
 }
 
@@ -38,6 +39,7 @@ export async function postListing(url, data) {
         console.log(response);
         if (response.ok) {
             console.log("Added new listing");
+            // Optionally, you can redirect the user after successfully creating a listing
             // window.location.href = "listings.html";
         }
     } catch (error) {
@@ -50,3 +52,4 @@ const createListingButton = document.getElementById("createListingBtn");
 createListingButton.addEventListener("click", function () {
     handleCreatePost();
 });
+
