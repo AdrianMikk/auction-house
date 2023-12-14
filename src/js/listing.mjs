@@ -110,11 +110,15 @@ function createPostCard(post) {
     // Image
     const imageUrl = post.media || "https://via.placeholder.com/300";
     const image = document.createElement("img");
-    image.src = imageUrl;
     image.alt = post.title || "Image Alt Text";
     image.classList.add("card-img-top", "mb-3");
     image.id = "postImageId";
+    image.src = imageUrl;
+    image.onerror = function () {
+        image.src = "/images/noImage.png";
+    }
     card.appendChild(image);
+
 
     // Title
     const titleElement = document.createElement("h2");
@@ -132,6 +136,7 @@ function createPostCard(post) {
     postFeedContainer.appendChild(card);
     card.appendChild(endsAtContainer);
     card.appendChild(tagContainer);
+
     // Buttons container
     const buttonsContainer = document.createElement("div");
     buttonsContainer.classList.add("d-flex", "flex-column", "rounded", "p-2", "align-items-end");
@@ -140,6 +145,20 @@ function createPostCard(post) {
     // Buttons
     const viewModalButton = createButton("Bid Now", "modalTitle", "modalBody", "modalImage", "viewPost", post);
     viewModalButton.classList.add("rounded", "mb-3");
+    const bidBtn = document.getElementById("bidBtn");
+    const bidAmount = document.getElementById("bidAmount");
+    viewModalButton.addEventListener("click", () => {
+        bidBtn.id = post.id;
+        bidAmount.id = post.id;
+    });
+
+    const bidSubmit = document.getElementById(`${post.id}`);
+    const bidInput = document.getElementById(`${post.id}`).value;
+    bidSubmit.addEventListener("click", (event) => {
+        event.preventDefault();
+        console.log(bidInput);
+        placeBid(post.id, bidInput);
+    });
 
     // Append the button to the container
     buttonsContainer.appendChild(viewModalButton);
@@ -148,15 +167,7 @@ function createPostCard(post) {
     card.appendChild(endsAtContainer);
     card.appendChild(buttonsContainer);
 
-    // const bidBtn = document.getElementById("bidBtn");
-    // bidBtn.id = post.id;
-    bidBtn.addEventListener("click", (event) => {
-        event.preventDefault();
-        const bidBtn = document.querySelectorAll("#bidBtn");
-        // const bidAmount = document.getElementById("bidAmount").value;
-        // console.log(bidAmount);
-        // placeBid(post.id, bidAmount);
-    });
+
 
     function postBid(bidUrl, data) {
         // Use fetch, axios, or your preferred method to post the bid data to the server
@@ -178,6 +189,48 @@ function createPostCard(post) {
 }
 
 
+function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post) {
+    const button = document.createElement("button");
+    button.classList.add("button", "btn-primary", "m-auto", "view-post", "mb-3", "fs-5");
+    button.textContent = text;
+    button.setAttribute("data-bs-toggle", "modal");
+    button.setAttribute("data-bs-target", "#postModal");
+
+    button.addEventListener("click", () => {
+        const modalTitle = document.getElementById(modalTitleId);
+        const modalBody = document.getElementById(modalBodyId);
+        const modalImage = document.getElementById(modalImageId);
+        const postIdElement = document.getElementById(postIdId);
+
+        modalTitle.textContent = post.title;
+        modalBody.textContent = post.description;
+        modalImage.src = post.media;
+
+        postModal.style.display = "block";
+    });
+
+    return button;
+}
+
+
+// BID
+
+
+function placeBid(listingId, bidAmount) {
+    const parsedValue = parseInt(bidAmount);
+    const bidData = {
+        amount: parsedValue
+    }
+    console.log(bidData);
+    // postBid(bidUrl, bidData);
+}
+
+// const bidButton = document.getElementById("bidBtn");
+bidButton.addEventListener("click", placeBid);
+
+
+addViewPostListeners();
+filterPost();
 
 // Countdown
 // const deadline = new Date('2023-12-31 23:59:59').getTime();
@@ -201,49 +254,6 @@ function createPostCard(post) {
 //         document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 //     }
 // }
-
-function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post) {
-    const button = document.createElement("button");
-    button.classList.add("button", "btn-primary", "m-auto", "view-post", "mb-3", "fs-5");
-    // button.id = "viewPost";
-    button.textContent = text;
-    button.setAttribute("data-bs-toggle", "modal");
-    button.setAttribute("data-bs-target", "#postModal");
-
-    button.addEventListener("click", () => {
-        const modalTitle = document.getElementById(modalTitleId);
-        const modalBody = document.getElementById(modalBodyId);
-        const modalImage = document.getElementById(modalImageId);
-        const postIdElement = document.getElementById(postIdId);
-
-        modalTitle.textContent = post.title;
-        modalBody.textContent = post.description;
-        modalImage.src = post.media;
-
-        postModal.style.display = "block";
-    });
-
-    return button;
-}
-
-
-// BID
-function placeBid(listingId, bidAmount) {
-    const parsedValue = parseInt(bidAmount);
-    const bidData = {
-        amount: parsedValue
-    }
-    console.log(bidData);
-    // postBid(bidUrl, bidData);
-}
-
-const bidButton = document.getElementById("bidBtn");
-bidButton.addEventListener("click", placeBid);
-
-
-addViewPostListeners();
-filterPost();
-
 
 
 
