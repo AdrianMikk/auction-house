@@ -6,21 +6,21 @@ const token = localStorage.getItem("accessToken");
 console.log("User ID:", userId);
 console.log("Access Token:", token);
 
-// function formListener() {
-//     const loginRegisterButton = document.querySelector("#loginRegisterBtn");
-//     const registerButton = document.querySelector("#registerBtn");
+function formListener() {
+    const loginRegisterButton = document.querySelector("#loginRegisterBtn");
+    const registerButton = document.querySelector("#registerBtn");
 
-//     console.log("Login Register Button:", loginRegisterButton);
-//     console.log("Register Button:", registerButton);
+    console.log("Login Register Button:", loginRegisterButton);
+    console.log("Register Button:", registerButton);
 
-//     if (loginRegisterButton) {
-//         loginRegisterButton.addEventListener("click", loginEvent);
-//     }
+    if (loginRegisterButton) {
+        loginRegisterButton.addEventListener("click", loginEvent);
+    }
 
-//     if (registerButton) {
-//         registerButton.addEventListener("click", registerEvent);
-//     }
-// }
+    if (registerButton) {
+        registerButton.addEventListener("click", registerEvent);
+    }
+}
 
 /**
  * Checks if a user is logged.
@@ -35,19 +35,19 @@ function checkIfLoggedIn() {
     const userId = localStorage.getItem("name")
     const token = localStorage.getItem("accessToken")
 
-    if (userId && token)
-        window.location.replace(`/profile.html?=${userId}`);
+    // if (userId && token)
+    //     window.location.replace(`/profile.html?=${userId}`);
 }
 
 export function removeNavLogOut() {
     const button = document.getElementById("logOut");
 
-    if (window.location.pathname === "/index.html" || window.location.pathname === "/listings.html") {
+    if (window.location.pathname === "/index.html") {
         button.classList.add("d-none");
     }
 }
 
-// formListener();
+formListener();
 removeNavLogOut();
 checkIfLoggedIn();
 

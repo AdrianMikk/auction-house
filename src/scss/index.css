@@ -44,17 +44,6 @@ h6 {
   color: #333;
 }
 
-#bidBtn {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
-
 .navbar, #btn, #loginRegisterBtn, #registerBtn, #avatarBtn,
 #closeBtn, #createListingBtn, #bidBtn, footer {
   background-color: #759395;
