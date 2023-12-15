@@ -1,5 +1,3 @@
-import { setToken } from "../API/login.mjs";
-
 const base_url = "https://api.noroff.dev/api/v1/auction/profiles";
 const avatar = "/adrian_mikkelsen/media";
 const avatarButton = document.getElementById("avatarBtn");
@@ -8,6 +6,7 @@ const profile_url = "?_listings=true&_bids=true";
 const url = base_url + avatar;
 const token = localStorage.getItem("accessToken");
 const creditsAmount = localStorage.getItem("userCredit");
+
 document.querySelector("#userCredit").textContent = creditsAmount;
 
 function updateAvatarUI(newAvatar) {
@@ -43,6 +42,11 @@ export async function updateAvatar(newAvatar) {
 avatarButton.addEventListener("click", async (e) => {
     e.preventDefault();
 
+    if (!token) {
+        console.log("Please log in to update your avatar.");
+        return;
+    }
+
     const newAvatar = document.getElementById("avatarInput").value;
 
     if (newAvatar) {
@@ -59,14 +63,19 @@ avatarButton.addEventListener("click", async (e) => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const chosenAvatar = localStorage.getItem("chosenAvatar");
+
     if (chosenAvatar) {
         updateAvatarUI(chosenAvatar);
     }
-    fetchProfile();
+
+    if (token) {
+        fetchProfile();
+    }
 });
 
 export function fetchProfile() {
     console.log("Fetching profile...");
+
     const userNameElement = document.getElementById("userName");
     const userCreditElement = document.getElementById("userCredit");
     const userAvatarElement = document.getElementById("avatarImage");
@@ -91,6 +100,7 @@ export function fetchProfile() {
         userAvatarElement.src = userAvatar || "default-avatar.jpg";
     }
 }
+
 
 
 

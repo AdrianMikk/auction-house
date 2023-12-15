@@ -2,9 +2,7 @@ import { search } from "./components/search.mjs";
 // import { createNewElement } from "./components/filter.mjs";
 import { filterPost } from "./components/filter.mjs";
 import { addViewPostListeners } from "./components/viewPost.js";
-// import { handleCreatePost } from "./components/createListing.mjs";
-// import { postListing } from "./components/createListing.mjs";
-// import { createNewPost } from "./components/createListing.mjs";
+import { addDeletePostListeners } from "./components/deletepost.js";
 
 const base_url = "https://api.noroff.dev/api/v1/auction/profiles";
 const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
@@ -101,13 +99,11 @@ function createPostCard(post, newId) {
 
     const card = document.createElement("div");
     card.classList.add("card", "mb-4", "col-12", "col-md-6", "col-lg-4");
-    // card.id = post.id;
 
     // ID
     const idElement = document.createElement("p");
     idElement.textContent = "Post ID: " + post.id;
     card.classList.add("mb-3");
-    // card.appendChild(idElement);
 
     // Image
     const imageUrl = post.media || "https://via.placeholder.com/300";
@@ -144,25 +140,50 @@ function createPostCard(post, newId) {
     buttonsContainer.classList.add("d-flex", "flex-column", "rounded", "p-2", "align-items-end");
     buttonsContainer.id = "bidNowBtn";
 
+
+    // Delete 
+
+    // const deleteButton = createNewElement("button", {
+    //     class: "btn btn-danger delete-post",
+    //     "data-post-id": id,
+    //     textContent: "Delete Post",
+    // });
+
+    // if (author.name === loggedInName) {
+    //     cardBodyDiv.appendChild(deleteButton);
+    // }
+
     // Buttons
     const listingsId = post.id;
     const viewModalButton = createButton("View More", "modalTitle", "modalBody", "modalImage", "viewPost", post, listingsId);
     viewModalButton.classList.add("rounded", "mb-3");
 
-    // Append the button to the container
-
-
     card.appendChild(tagContainer);
     card.appendChild(endsAtContainer);
     card.appendChild(buttonsContainer);
-    // bidBtn.addEventListener("click", function (event) {
-    //     event.preventDefault();
-    //     loadModal(listingsId);
 
-    // });
     buttonsContainer.appendChild(viewModalButton);
-    // bidNow(listingsId);
 }
+
+
+// View Bids
+async function fetchBidsForPost(postId) {
+    const bidUrl = `${fullPostURL}/${postId}/bids`;
+
+    try {
+        const response = await fetch(bidUrl);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.error("Error fetching bids:", error);
+        throw error;
+    }
+}
+
 
 async function postBid(postId, data) {
     const token = localStorage.getItem("accessToken");
@@ -184,27 +205,48 @@ async function postBid(postId, data) {
 }
 
 function bidNow(postId) {
-    // console.log("Bid button clicked");
-    // console.log(postId);
     const bidBtn = document.getElementById(postId);
     bidBtn.addEventListener("click", function (event) {
         event.preventDefault();
-        // console.log("Hallaisen")
-        // const form = document.getElementById("biddingForm");
-        // const formData = new FormData(form);
 
-        const amount = document.getElementById("yourBid").value;
+        const isLoggedIn = localStorage.getItem("accessToken");
+
+        if (!isLoggedIn) {
+            alert("Please log in to place a bid.");
+            // window.location.href = "/login";
+            return;
+        }
+
+        const bidInput = document.getElementById("yourBid");
+        const amount = bidInput.value.trim();
+
+        if (!amount) {
+            alert("Please enter a bid amount.");
+            return;
+        }
+
         const parsedAmount = parseInt(amount);
+        if (isNaN(parsedAmount)) {
+            alert("Please enter a valid bid amount.");
+            return;
+        }
+
         const data = {
             amount: parsedAmount,
         };
+
         console.log(data);
+
         const response = postBid(postId, data);
+
         alert("Bid added successfully");
         window.location.reload();
+
         console.log(response);
     });
 }
+
+
 
 function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post, postId) {
     const button = document.createElement("button");
@@ -223,7 +265,6 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
         modalBody.textContent = post.description;
         modalImage.src = post.media;
 
-        // postModal.style.display = "block";
         console.log(bidBtn)
         bidBtn.id = postId;
         bidNow(postId);
@@ -232,6 +273,8 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
     return button;
 }
 
+
+addDeletePostListeners();
 addViewPostListeners();
 filterPost();
 

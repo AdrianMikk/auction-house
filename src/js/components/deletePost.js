@@ -10,12 +10,37 @@ const accessToken = localStorage.getItem("accessToken");
  * When a button is clicked, prompt the user for confirmation and delete the post if confirmed.
  */
 export function addDeletePostListeners() {
-    const deletePostButtons = document.querySelectorAll(".delete-post");
-    deletePostButtons.forEach((button) => {
-        button.addEventListener("click", (e) => {
-            const postId = e.target.getAttribute("data-post-id");
-            if (confirm("Are you sure you want to delete this post?")) {
-                deletePost(postId);
+    const deleteButtons = document.querySelectorAll(".delete-post");
+
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", async function (event) {
+            event.preventDefault();
+            const postId = this.getAttribute("data-post-id");
+
+            try {
+                const token = localStorage.getItem("accessToken");
+                const response = await fetch(`${fullPostURL}/${postId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.statusText}`);
+                }
+
+                const postCard = this.closest(".card");
+                if (postCard) {
+                    postCard.remove();
+                } else {
+                    console.error("Post card not found for deletion.");
+                }
+
+                console.log("Post deleted successfully");
+            } catch (error) {
+                console.error("Error:", error);
             }
         });
     });
@@ -25,7 +50,7 @@ export function addDeletePostListeners() {
  * Delete a post with the provided post ID.
  * @param {number} postId - The ID of the post to delete.
  */
-async function deletePost(postId) {
+export async function deletePost(postId) {
     const options = {
         method: "DELETE",
         headers: {
@@ -45,3 +70,5 @@ async function deletePost(postId) {
         alert("Error deleting the post.");
     }
 }
+
+

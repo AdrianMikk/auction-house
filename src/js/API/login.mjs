@@ -4,7 +4,6 @@ const API_BASE_URL = "https://api.noroff.dev/api/v1";
 const base_url = "https://api.noroff.dev/api/v1/auction/profiles";
 
 const profileLink = document.getElementById("navProfile");
-// console.log(profileLink);
 const userName = document.getElementById("userName");
 const token = localStorage.getItem("accessToken");
 
@@ -23,7 +22,6 @@ export function setToken(result) {
         localStorage.setItem("userCredit", result.credits);
         localStorage.setItem("chosenAvatar", result.avatar);
         const userCreditElement = getElementById("#userCredit");
-        console.log(userCreditElement);
         if (userCreditElement) {
             userCreditElement.textContent = result.credits;
         }
@@ -39,14 +37,6 @@ export function setToken(result) {
 const API_AUCTION_LOGIN_PATH = "/auction/auth/login";
 const API_AUCTION_LOGIN_URL = `${API_BASE_URL}${API_AUCTION_LOGIN_PATH}`;
 
-/**
- * Handles the login event when a form is submitted.
- * 
- * @param {Event} event - The event object representing the form submission.
- */
-
-
-// ID
 export async function loginEvent(event) {
     event.preventDefault();
 
@@ -68,27 +58,28 @@ export async function loginEvent(event) {
         body: JSON.stringify(userObject),
     };
 
-    console.log(loginOption);
     const result = await fetch(API_AUCTION_LOGIN_URL, loginOption);
     const data = await result.json();
-    console.log(data);
-    console.log(result);
 
     setToken(data);
-    // console.log(result);
-};
+}
 
 /**
  * Logs out the user by clearing local storage on button click.
  *
  * @function logOutUser
  */
-function logOutUser() {
-    const logOutBtn = document.getElementById("logOut")
+export function logOutUser() {
+    const logOutBtn = document.getElementById("logOut");
     logOutBtn.addEventListener("click", () => {
-        localStorage.clear()
-    })
+        // Check if there is an active session before logging out
+        if (localStorage.getItem("accessToken")) {
+            localStorage.clear();
+            // Redirect to the login page or any other appropriate page
+            window.location.href = "/login.html";
+        }
+    });
 }
-logOutUser();
+
 
 
