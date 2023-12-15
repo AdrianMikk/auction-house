@@ -3,6 +3,10 @@ import { search } from "./components/search.mjs";
 import { filterPost } from "./components/filter.mjs";
 import { addViewPostListeners } from "./components/viewPost.js";
 import { addDeletePostListeners } from "./components/deletepost.js";
+import { logOutUser } from "./API/login.mjs";
+// import { removeNavLogOut } from "./index.js";
+// removeNavLogOut();
+logOutUser();
 
 const base_url = "https://api.noroff.dev/api/v1/auction/profiles";
 const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
@@ -18,7 +22,7 @@ const bidBtn = document.getElementById("bidBtn");
 searchInput.addEventListener("input", search);
 
 export async function fetchAllAuctions() {
-    const allAuctionsUrl = `${API_BASE_URL}${listing_endpoint}?sort=created`;
+    const allAuctionsUrl = `${API_BASE_URL}${listing_endpoint}?sort=created&_bids=true`;
 
     try {
         const fetchAllAuctionsOptions = {
@@ -79,7 +83,8 @@ function clearPostFeed() {
 
 init();
 
-function createPostCard(post, newId) {
+function createPostCard(post) {
+    console.log(post);
     if (!postFeedContainer) {
         console.error("postFeedContainer not found in the document.");
         return;
@@ -155,7 +160,8 @@ function createPostCard(post, newId) {
 
     // Buttons
     const listingsId = post.id;
-    const viewModalButton = createButton("View More", "modalTitle", "modalBody", "modalImage", "viewPost", post, listingsId);
+    const bidsArray = post.bids;
+    const viewModalButton = createButton("View More", "modalTitle", "modalBody", "modalImage", "viewPost", post, listingsId, bidsArray);
     viewModalButton.classList.add("rounded", "mb-3");
 
     card.appendChild(tagContainer);
@@ -166,23 +172,32 @@ function createPostCard(post, newId) {
 }
 
 
-// View Bids
-async function fetchBidsForPost(postId) {
-    const bidUrl = `${fullPostURL}/${postId}/bids`;
-
-    try {
-        const response = await fetch(bidUrl);
-        if (!response.ok) {
-            throw new Error(`Error: ${response.statusText}`);
-        }
-
-        const json = await response.json();
-        return json;
-    } catch (error) {
-        console.error("Error fetching bids:", error);
-        throw error;
-    }
+async function viewBids(postId) {
+    const response = await fetch(`${fullPostURL}/${postId}?_bids=true`)
+    const data = await response.json();
+    return data;
 }
+
+function displayBids(data) {
+    const bidData = data.bids;
+    console.log(bidData);
+    const currentBid = document.getElementById("bidContainer");
+    if (bidData.length === 0) {
+        const noBids = document.createElement("p");
+        noBids.textContent = "No bids yet";
+        currentBid.appendChild(noBids);
+    }
+    bidData.forEach((bid) => {
+        const bidder = document.createElement("p");
+        currentBid.appendChild(bidder);
+        const bidCount = document.createElement("p");
+        bidCount.textContent = `${bid.bidderName} Bids: ${bid.amount}`;
+        currentBid.appendChild(bidCount);
+    });
+}
+
+
+
 
 
 async function postBid(postId, data) {
@@ -248,14 +263,14 @@ function bidNow(postId) {
 
 
 
-function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post, postId) {
+function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post, postId, bids) {
     const button = document.createElement("button");
     button.classList.add("button", "btn-primary", "m-auto", "view-post", "mb-3", "fs-5");
     button.textContent = text;
     button.setAttribute("data-bs-toggle", "modal");
     button.setAttribute("data-bs-target", "#postModal");
 
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
         const modalTitle = document.getElementById(modalTitleId);
         const modalBody = document.getElementById(modalBodyId);
         const modalImage = document.getElementById(modalImageId);
@@ -265,9 +280,16 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
         modalBody.textContent = post.description;
         modalImage.src = post.media;
 
+        const currentBid = document.getElementById("bidContainer");
+        currentBid.innerHTML = "";
+
+
         console.log(bidBtn)
         bidBtn.id = postId;
         bidNow(postId);
+        const data = await viewBids(postId);
+        console.log(data);
+        displayBids(data);
     });
 
     return button;

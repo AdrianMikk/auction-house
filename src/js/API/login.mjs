@@ -21,10 +21,6 @@ export function setToken(result) {
         localStorage.setItem("name", result.name);
         localStorage.setItem("userCredit", result.credits);
         localStorage.setItem("chosenAvatar", result.avatar);
-        const userCreditElement = getElementById("#userCredit");
-        if (userCreditElement) {
-            userCreditElement.textContent = result.credits;
-        }
 
         window.location.href = "/listings.html";
     } else {
@@ -72,11 +68,13 @@ export async function loginEvent(event) {
 export function logOutUser() {
     const logOutBtn = document.getElementById("logOut");
     logOutBtn.addEventListener("click", () => {
-        // Check if there is an active session before logging out
-        if (localStorage.getItem("accessToken")) {
+        const token = localStorage.getItem("accessToken");
+        if (token) {
             localStorage.clear();
-            // Redirect to the login page or any other appropriate page
-            window.location.href = "/login.html";
+            window.location.href = "/index.html";
+        } else {
+            logOutBtn.textContent = "Log in";
+            window.location.href = "/index.html";
         }
     });
 }

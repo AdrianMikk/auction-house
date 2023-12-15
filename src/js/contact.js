@@ -5,6 +5,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const email = document.querySelector("#email");
   const message = document.querySelector("#message");
 
+  // Function to create a notification element
+  function createNotification(message) {
+    const notification = document.createElement("div");
+    notification.classList.add("notification");
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    // Automatically hide the notification after a certain period
+    setTimeout(() => {
+      notification.style.display = "none";
+    }, 3000); // Adjust the duration as needed (3000 milliseconds = 3 seconds)
+  }
+
   function validateForm(event) {
     const errorMessages = document.querySelectorAll(".error-message");
     let isValid = true;
@@ -35,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (isValid) {
       console.log("IT WORKS");
+      alert("Form successfully submitted!");
       return true;
     }
   }

@@ -6,14 +6,21 @@ const token = localStorage.getItem("accessToken");
 console.log("User ID:", userId);
 console.log("Access Token:", token);
 
-const loginRegisterButton = document.querySelector("#loginRegisterBtn");
-const registerButton = document.querySelector("#registerBtn");
+// function formListener() {
+//     const loginRegisterButton = document.querySelector("#loginRegisterBtn");
+//     const registerButton = document.querySelector("#registerBtn");
 
-const loginForm = document.querySelector("#loginForm");
-const registerForm = document.querySelector("#registerForm");
+//     console.log("Login Register Button:", loginRegisterButton);
+//     console.log("Register Button:", registerButton);
 
-loginRegisterButton.addEventListener("click", loginEvent);
-registerButton.addEventListener("click", registerEvent);
+//     if (loginRegisterButton) {
+//         loginRegisterButton.addEventListener("click", loginEvent);
+//     }
+
+//     if (registerButton) {
+//         registerButton.addEventListener("click", registerEvent);
+//     }
+// }
 
 /**
  * Checks if a user is logged.
@@ -31,5 +38,16 @@ function checkIfLoggedIn() {
     if (userId && token)
         window.location.replace(`/profile.html?=${userId}`);
 }
+
+export function removeNavLogOut() {
+    const button = document.getElementById("logOut");
+
+    if (window.location.pathname === "/index.html" || window.location.pathname === "/listings.html") {
+        button.classList.add("d-none");
+    }
+}
+
+// formListener();
+removeNavLogOut();
 checkIfLoggedIn();
 
