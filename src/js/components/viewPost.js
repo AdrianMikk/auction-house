@@ -15,7 +15,6 @@ export function addViewPostListeners(post) {
                 const modalTitle = document.getElementById("modalTitle");
                 const modalBody = document.getElementById("modalBody");
                 const modalImage = document.getElementById("modalImage");
-                // const noImage = document.getElementById("postImageId");
                 const postIdElement = document.getElementById("postId");
                 const bidCount = document.getElementById("currentBid");
                 postIdElement.textContent = "Post ID: " + postId;
