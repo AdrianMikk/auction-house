@@ -15,6 +15,8 @@ const searchInput = document.getElementById("search");
 const API_BASE_URL = "https://api.noroff.dev/api/v1/auction/";
 const listing_endpoint = "listings";
 
+const bidBtn = document.getElementById("bidBtn");
+
 searchInput.addEventListener("input", search);
 
 export async function fetchAllAuctions() {
@@ -79,7 +81,6 @@ function clearPostFeed() {
 
 init();
 
-
 function createPostCard(post, newId) {
     if (!postFeedContainer) {
         console.error("postFeedContainer not found in the document.");
@@ -100,7 +101,7 @@ function createPostCard(post, newId) {
 
     const card = document.createElement("div");
     card.classList.add("card", "mb-4", "col-12", "col-md-6", "col-lg-4");
-    card.id = post.id;
+    // card.id = post.id;
 
     // ID
     const idElement = document.createElement("p");
@@ -149,18 +150,27 @@ function createPostCard(post, newId) {
     viewModalButton.classList.add("rounded", "mb-3");
 
     // Append the button to the container
-    buttonsContainer.appendChild(viewModalButton);
+
 
     card.appendChild(tagContainer);
     card.appendChild(endsAtContainer);
     card.appendChild(buttonsContainer);
+    // bidBtn.addEventListener("click", function (event) {
+    //     event.preventDefault();
+    //     loadModal(listingsId);
+
+    // });
+    buttonsContainer.appendChild(viewModalButton);
+    // bidNow(listingsId);
 }
 
-function postBid(postId, data) {
-    fetch(`${fullPostURL}/${postId}/bids`, {
+async function postBid(postId, data) {
+    const token = localStorage.getItem("accessToken");
+    await fetch(`${fullPostURL}/${postId}/bids`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
     })
@@ -174,21 +184,29 @@ function postBid(postId, data) {
 }
 
 function bidNow(postId) {
-    const listingsId = postId;
-    const bidBtn = document.getElementById("bidBtn");
-    const bidInput = document.getElementById("yourBid");
-    bidBtn.id = "bidBtn";
-
+    // console.log("Bid button clicked");
+    // console.log(postId);
+    const bidBtn = document.getElementById(postId);
     bidBtn.addEventListener("click", function (event) {
         event.preventDefault();
-        postBid(listingsId, { Amount: bidInput.value })
-        console.log("Bid button clicked");
-        console.log(bidInput.value);
+        // console.log("Hallaisen")
+        // const form = document.getElementById("biddingForm");
+        // const formData = new FormData(form);
 
+        const amount = document.getElementById("yourBid").value;
+        const parsedAmount = parseInt(amount);
+        const data = {
+            amount: parsedAmount,
+        };
+        console.log(data);
+        const response = postBid(postId, data);
+        alert("Bid added successfully");
+        window.location.reload();
+        console.log(response);
     });
 }
 
-function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post) {
+function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post, postId) {
     const button = document.createElement("button");
     button.classList.add("button", "btn-primary", "m-auto", "view-post", "mb-3", "fs-5");
     button.textContent = text;
@@ -205,7 +223,10 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
         modalBody.textContent = post.description;
         modalImage.src = post.media;
 
-        postModal.style.display = "block";
+        // postModal.style.display = "block";
+        console.log(bidBtn)
+        bidBtn.id = postId;
+        bidNow(postId);
     });
 
     return button;
@@ -213,30 +234,6 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
 
 addViewPostListeners();
 filterPost();
-
-// Countdown
-// const deadline = new Date('2023-12-31 23:59:59').getTime();
-// const countdownInterval = setInterval(updateCountdown, 1000);
-
-// function updateCountdown(time, elementUpdate) {
-//     const end = new Date(time);
-//     const now = new Date().getTime();
-//     const timeRemaining = deadline - now;
-//     const difference = end - now;
-
-//     if (timeRemaining <= 0) {
-//         document.getElementById('countdown').innerHTML = 'Auction has ended!';
-//         clearInterval(countdownInterval);
-//     } else {
-//         const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-//         const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//         const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-//         const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-//         document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-//     }
-// }
-
 
 
 
