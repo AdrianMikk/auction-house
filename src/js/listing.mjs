@@ -1,10 +1,11 @@
 import { search } from "./components/search.mjs";
-import { filterPost } from "./components/filter.mjs";
+// import { createNewElement } from "./components/filter.mjs";
+// import { filterPost } from "./components/filter.mjs";
 import { addViewPostListeners } from "./components/viewPost.js";
 import { addDeletePostListeners } from "./components/deletepost.js";
 import { logOutUser } from "./API/login.mjs";
-import { removeNavLogOut } from "./index.js";
-removeNavLogOut();
+// import { removeNavLogOut } from "./index.js";
+// removeNavLogOut();
 logOutUser();
 
 const base_url = "https://api.noroff.dev/api/v1/auction/profiles";
@@ -120,7 +121,7 @@ init();
  * @returns {void}
  */
 function createPostCard(post) {
-    console.log(post);
+    // console.log(post);
     if (!postFeedContainer) {
         console.error("postFeedContainer not found in the document.");
         return;
@@ -381,7 +382,7 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
 
 addDeletePostListeners();
 addViewPostListeners();
-filterPost();
+// filterPost();
 
 
 
