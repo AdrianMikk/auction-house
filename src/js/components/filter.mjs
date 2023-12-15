@@ -76,7 +76,14 @@ export function displayFilteredPosts(data) {
     });
 }
 
-
+/**
+ * Filters and displays posts based on the selected sorting option (newest or oldest).
+ *
+ * @function
+ * @async
+ * @param {Array<Object>} data - The array of post data to be filtered and sorted.
+ * @returns {void}
+ */
 export async function filterPost(data) {
     console.log("Data:", data);
 

@@ -14,6 +14,14 @@ profileLink.addEventListener("click", (event) => {
     }
 });
 
+/**
+ * Sets the access token and user information in local storage and redirects to the specified page.
+ *
+ * @function
+ * @param {Object} result - The result object containing the access token and user information.
+ * @throws {Error} If the access token is not found in the response.
+ * @returns {void}
+ */
 export function setToken(result) {
     if (result.accessToken) {
         localStorage.setItem("accessToken", result.accessToken);
@@ -33,6 +41,15 @@ export function setToken(result) {
 const API_AUCTION_LOGIN_PATH = "/auction/auth/login";
 const API_AUCTION_LOGIN_URL = `${API_BASE_URL}${API_AUCTION_LOGIN_PATH}`;
 
+/**
+ * Handles the login event, preventing the default form submission and sending a login request.
+ *
+ * @async
+ * @function
+ * @param {Event} event - The event object representing the form submission.
+ * @throws {Error} If there's an error during the login process or if the server responds with an error.
+ * @returns {void}
+ */
 export async function loginEvent(event) {
     event.preventDefault();
 

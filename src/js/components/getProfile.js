@@ -9,6 +9,13 @@ const creditsAmount = localStorage.getItem("userCredit");
 
 document.querySelector("#userCredit").textContent = creditsAmount;
 
+/**
+ * Updates the user interface (UI) with a new avatar image and stores the choice in local storage.
+ *
+ * @function
+ * @param {string} newAvatar - The URL or path of the new avatar image.
+ * @returns {void}
+ */
 function updateAvatarUI(newAvatar) {
     const avatarImage = document.getElementById("avatarImage");
     if (avatarImage) {
@@ -17,6 +24,15 @@ function updateAvatarUI(newAvatar) {
     }
 }
 
+/**
+ * Updates the user's avatar on the server and logs the updated profile information.
+ *
+ * @async
+ * @function
+ * @param {string} newAvatar - The URL or path of the new avatar image.
+ * @throws {Error} If there's an error during the avatar update or if the server responds with an error.
+ * @returns {void}
+ */
 export async function updateAvatar(newAvatar) {
     const updateUrl = base_url + avatar;
     try {
@@ -73,6 +89,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+/**
+ * Fetches user profile information from local storage and updates the UI elements accordingly.
+ *
+ * @function
+ * @returns {void}
+ */
 export function fetchProfile() {
     console.log("Fetching profile...");
 

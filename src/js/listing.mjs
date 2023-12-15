@@ -21,6 +21,14 @@ const bidBtn = document.getElementById("bidBtn");
 
 searchInput.addEventListener("input", search);
 
+/**
+ * Fetches all auctions from the server.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Object>} A promise that resolves to the JSON representation of all auctions.
+ * @throws {Error} If the server responds with an error or if there's a network issue.
+ */
 export async function fetchAllAuctions() {
     const allAuctionsUrl = `${API_BASE_URL}${listing_endpoint}?sort=created&_bids=true`;
 
@@ -46,6 +54,14 @@ export async function fetchAllAuctions() {
     }
 }
 
+/**
+ * Initializes the application by fetching all auctions, sorting them by creation date,
+ * and rendering the post feed. Also, sets up event listeners for the search functionality.
+ *
+ * @async
+ * @function
+ * @throws {Error} If there's an error during the initialization process.
+ */
 async function init() {
     try {
         const allAuctions = await fetchAllAuctions();
@@ -75,6 +91,12 @@ async function init() {
     }
 }
 
+/**
+ * Clears all child elements from the post feed container.
+ *
+ * @function
+ * @returns {void}
+ */
 function clearPostFeed() {
     while (postFeedContainer.firstChild) {
         postFeedContainer.removeChild(postFeedContainer.firstChild);
@@ -83,6 +105,21 @@ function clearPostFeed() {
 
 init();
 
+/**
+ * Creates and renders a post card based on the provided post data.
+ *
+ * @function
+ * @param {Object} post - The post data to be used for creating the card.
+ * @param {string} post.id - The unique identifier for the post.
+ * @param {string} post.title - The title of the post.
+ * @param {string} post.description - The description/content of the post.
+ * @param {string[]} post.tags - An array of tags associated with the post.
+ * @param {string} post.endsAt - The deadline/ending time for the post.
+ * @param {string} post.media - The URL of the post's media (image).
+ * @param {Object[]} post.bids - An array of bids associated with the post.
+ *
+ * @returns {void}
+ */
 function createPostCard(post) {
     console.log(post);
     if (!postFeedContainer) {
@@ -171,13 +208,30 @@ function createPostCard(post) {
     buttonsContainer.appendChild(viewModalButton);
 }
 
-
+/**
+ * Fetches and returns the bids associated with a specific post.
+ *
+ * @async
+ * @function
+ * @param {string} postId - The unique identifier of the post for which bids are to be viewed.
+ * @returns {Promise<Object>} A promise that resolves to the JSON representation of the bids for the specified post.
+ * @throws {Error} If there's an error during the fetch operation or if the server responds with an error.
+ */
 async function viewBids(postId) {
     const response = await fetch(`${fullPostURL}/${postId}?_bids=true`)
     const data = await response.json();
     return data;
 }
 
+/**
+ * Displays the bid information in the specified container based on the provided data.
+ *
+ * @function
+ * @param {Object} data - The data containing bid information to be displayed.
+ * @param {Object[]} data.bids - An array of bids associated with the post.
+ *
+ * @returns {void}
+ */
 function displayBids(data) {
     const bidData = data.bids;
     console.log(bidData);
@@ -199,7 +253,17 @@ function displayBids(data) {
 
 
 
-
+/**
+ * Posts a bid for a specific post using the provided data.
+ *
+ * @async
+ * @function
+ * @param {string} postId - The unique identifier of the post for which the bid is being submitted.
+ * @param {Object} data - The data containing bid information to be posted.
+ * @param {string} data.bidderName - The name of the bidder submitting the bid.
+ * @param {number} data.amount - The amount of the bid.
+ * @throws {Error} If there's an error during the post operation or if the server responds with an error.
+ */
 async function postBid(postId, data) {
     const token = localStorage.getItem("accessToken");
     await fetch(`${fullPostURL}/${postId}/bids`, {
@@ -219,6 +283,13 @@ async function postBid(postId, data) {
         });
 }
 
+/**
+ * Adds an event listener to a bid button for placing a bid on a specific post.
+ *
+ * @function
+ * @param {string} postId - The unique identifier of the post for which a bid is being placed.
+ * @returns {void}
+ */
 function bidNow(postId) {
     const bidBtn = document.getElementById(postId);
     bidBtn.addEventListener("click", function (event) {
@@ -262,7 +333,20 @@ function bidNow(postId) {
 }
 
 
-
+/**
+ * Creates a button element with specified text and sets up event listeners for displaying post details and bids.
+ *
+ * @function
+ * @param {string} text - The text content of the button.
+ * @param {string} modalTitleId - The HTML element ID for the modal title.
+ * @param {string} modalBodyId - The HTML element ID for the modal body.
+ * @param {string} modalImageId - The HTML element ID for the modal image.
+ * @param {string} postIdId - The HTML element ID for the post ID.
+ * @param {Object} post - The post data associated with the button.
+ * @param {string} postId - The unique identifier of the post.
+ * @param {Object[]} bids - An array of bids associated with the post.
+ * @returns {HTMLButtonElement} The created button element.
+ */
 function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post, postId, bids) {
     const button = document.createElement("button");
     button.classList.add("button", "btn-primary", "m-auto", "view-post", "mb-3", "fs-5");

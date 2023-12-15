@@ -4,6 +4,12 @@ const API_BASE_URL = "https://api.noroff.dev/api/v1/";
 const fullPostURL = "https://api.noroff.dev/api/v1/auction/listings";
 const accessToken = localStorage.getItem("accessToken");
 
+/**
+ * Handles the creation of a new post listing, checking user authentication and collecting form data.
+ *
+ * @function
+ * @returns {void}
+ */
 export function handleCreatePost() {
     if (!accessToken) {
         alert("Please log in to create a listing.");
@@ -33,6 +39,16 @@ export function handleCreatePost() {
     postListing(fullPostURL, newPostData);
 }
 
+/**
+ * Posts a new listing to the specified URL using the provided data.
+ *
+ * @async
+ * @function
+ * @param {string} url - The URL where the listing will be posted.
+ * @param {Object} data - The data representing the new listing.
+ * @throws {Error} If there's an error during the listing creation or if the server responds with an error.
+ * @returns {void}
+ */
 export async function postListing(url, data) {
     try {
         const response = await apiFetch(url, "post", data);

@@ -5,18 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const email = document.querySelector("#email");
   const message = document.querySelector("#message");
 
-  // Function to create a notification element
-  function createNotification(message) {
-    const notification = document.createElement("div");
-    notification.classList.add("notification");
-    notification.textContent = message;
-    document.body.appendChild(notification);
-    // Automatically hide the notification after a certain period
-    setTimeout(() => {
-      notification.style.display = "none";
-    }, 3000); // Adjust the duration as needed (3000 milliseconds = 3 seconds)
-  }
-
+  /**
+ * Validates the form fields and displays error messages for invalid input.
+ *
+ * @function
+ * @param {Event} event - The event object triggered by the form submission.
+ * @returns {boolean} Returns `true` if the form is valid; otherwise, returns `false`.
+ */
   function validateForm(event) {
     const errorMessages = document.querySelectorAll(".error-message");
     let isValid = true;
@@ -52,6 +47,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  /**
+ * Adds an error message to a field and applies visual indicators for invalid input.
+ *
+ * @function
+ * @param {string} message - The error message to be displayed.
+ * @param {HTMLInputElement|HTMLTextAreaElement} field - The form field associated with the error.
+ * @returns {void}
+ */
   function addErrorMessage(message, field) {
     const errorMessage = document.createElement("div");
     errorMessage.classList.add("error-message");
@@ -61,10 +64,25 @@ document.addEventListener("DOMContentLoaded", function () {
     field.parentNode.insertBefore(errorMessage, field.nextSibling);
   }
 
+  /**
+ * Checks if the length of a value (after trimming) is greater than or equal to a specified length.
+ *
+ * @function
+ * @param {string} value - The value to be checked for length.
+ * @param {number} len - The minimum required length.
+ * @returns {boolean} Returns `true` if the length is sufficient; otherwise, returns `false`.
+ */
   function checkLength(value, len) {
     return value.trim().length >= len;
   }
 
+  /**
+ * Validates an email address using a regular expression pattern.
+ *
+ * @function
+ * @param {string} email - The email address to be validated.
+ * @returns {boolean} Returns `true` if the email address is valid; otherwise, returns `false`.
+ */
   function validateEmail(email) {
     const regEx = /\S+@\S+\.\S+/;
     const patternMatches = regEx.test(email);

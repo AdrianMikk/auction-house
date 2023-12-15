@@ -1,7 +1,9 @@
-
 /**
- * Add click event listeners to "View Post" buttons.
- * When a button is clicked, display the post content or handle accordingly.
+ * Adds click event listeners to view post buttons and displays post details in a modal.
+ *
+ * @function
+ * @param {Object} post - The post data associated with the view post buttons.
+ * @returns {void}
  */
 export function addViewPostListeners(post) {
     const viewPostButtons = document.querySelectorAll(".view-post");
