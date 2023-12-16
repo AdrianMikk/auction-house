@@ -200,6 +200,23 @@ function createPostCard(post) {
     card.appendChild(buttonsContainer);
 
     buttonsContainer.appendChild(viewModalButton);
+
+    // const listingsId = post.id;
+    // const bidsArray = post.bids;
+    // const viewModalButton = createButton("View More", "modalTitle", "modalBody", "modalImage", "viewPost", post, listingsId, bidsArray);
+    // viewModalButton.classList.add("rounded", "mb-3");
+    // const deletePostButton = createButton("Delete Post", "modalTitle", "modalBody", "modalImage", "viewPost", post, listingsId, bidsArray);
+    // const loggedInUserIsPostOwner = post.seller.name === localStorage.getItem("name");
+
+    // if (loggedInUserIsPostOwner) {
+    //     card.appendChild(deletePostButton)
+    // }
+
+    // card.appendChild(tagContainer);
+    // card.appendChild(endsAtContainer);
+    // card.appendChild(buttonsContainer);
+
+    // buttonsContainer.appendChild(viewModalButton);
 }
 
 /**

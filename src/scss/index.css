@@ -76,10 +76,12 @@ h6 {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  color: #000000;
   transition: all 0.3s ease 0s;
 }
 #viewPost:hover, #bidBtn:hover {
   background-color: #856866;
+  color: #ffffff;
 }
 
 .button {
