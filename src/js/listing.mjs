@@ -351,7 +351,8 @@ function bidNow(postId) {
  */
 function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, post, postId, bids) {
     const button = document.createElement("button");
-    button.classList.add("button", "btn-primary", "m-auto", "view-post", "mb-3", "fs-5");
+    button.classList.add("button", "m-auto", "view-post", "mb-3", "fs-5");
+    button.id = postIdId;
     button.textContent = text;
     button.setAttribute("data-bs-toggle", "modal");
     button.setAttribute("data-bs-target", "#postModal");

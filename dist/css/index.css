@@ -49,7 +49,7 @@ h6 {
 }
 
 .navbar, #btn, #loginRegisterBtn, #registerBtn, #avatarBtn,
-#closeBtn, #createListingBtn, #bidBtn, footer {
+#closeBtn, #createListingBtn, footer {
   background-color: #759395;
 }
 
@@ -85,8 +85,7 @@ h6 {
 }
 
 #viewPost:hover, #bidBtn:hover {
-  background-color: #759395;
-  color: #E0D7DB;
+  background-color: #856866;
 }
 
 .button {
