@@ -37,8 +37,7 @@
     cursor: pointer;
     transition: all 0.3s ease 0s;
     &:hover {
-      background-color: $primary;
-      color: $background-white;
+      background-color: $secondary;  
     }
   }
 

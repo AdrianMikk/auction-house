@@ -79,8 +79,7 @@ h6 {
   transition: all 0.3s ease 0s;
 }
 #viewPost:hover, #bidBtn:hover {
-  background-color: #759395;
-  color: #E0D7DB;
+  background-color: #856866;
 }
 
 .button {
