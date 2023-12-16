@@ -212,7 +212,7 @@ function createPostCard(post) {
  * @throws {Error} If there's an error during the fetch operation or if the server responds with an error.
  */
 async function viewBids(postId) {
-    const response = await fetch(`${fullPostURL}/${postId}?_bids=true`)
+    const response = await fetch(`${fullPostURL}/${postId}?_bids=true&_seller=true`)
     const data = await response.json();
     return data;
 }
@@ -378,6 +378,8 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
         modalImage.onerror = function () {
             modalImage.src = "/images/noImage.png";
         };
+
+        const loggedInUserIsPostOwner = post.seller.name === localStorage.getItem("name");
 
         const currentBid = document.getElementById("bidContainer");
         currentBid.innerHTML = "";

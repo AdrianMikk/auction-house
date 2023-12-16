@@ -22,7 +22,7 @@ export function handleCreatePost() {
     const newListingImage = document.getElementById("newPostImageInput");
     const newEndsAtDate = document.getElementById("endsAt");
 
-    if (!newListingName.value || !newListingBodyDesc.value || !newListingTags.value || !newListingImage.value || !newEndsAtDate.value) {
+    if (!newListingName.value || !newListingBodyDesc.value || !newListingTags.value || !newEndsAtDate.value) {
         alert("Please fill in all the required fields.");
         return;
     }
@@ -57,18 +57,17 @@ export function handleCreatePost() {
 export async function postListing(url, data) {
     try {
         const response = await apiFetch(url, "post", data);
-        console.log(response);
 
         if (response.ok) {
             alert("Listing created successfully!");
             window.location.replace("/listings.html");
-        } else if (!response.ok) {
-            alert("There seems to be some problems creating your listing, please try again soon");
         }
     } catch (error) {
-        console.log(error.name + " " + error.message);
+        console.error("Error posting listing:", error);
+        alert("An error occurred while creating the listing. Please try again later.");
     }
 }
+
 
 
 
