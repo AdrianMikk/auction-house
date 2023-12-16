@@ -180,18 +180,14 @@ function createPostCard(post) {
     buttonsContainer.classList.add("d-flex", "flex-column", "rounded", "p-2", "align-items-end");
     buttonsContainer.id = "bidNowBtn";
 
-
-    // Delete 
-
-    // const deleteButton = createNewElement("button", {
-    //     class: "btn btn-danger delete-post",
-    //     "data-post-id": id,
-    //     textContent: "Delete Post",
+    // Delete Button
+    // const deleteButton = document.createElement("button");
+    // deleteButton.classList.add("btn", "btn-danger", "delete-post", "rounded", "mb-3");
+    // deleteButton.textContent = "Delete Post";
+    // deleteButton.addEventListener("click", () => {
+    //     deletePost(post.id);
+    //     card.remove();
     // });
-
-    // if (author.name === loggedInName) {
-    //     cardBodyDiv.appendChild(deleteButton);
-    // }
 
     // Buttons
     const listingsId = post.id;
