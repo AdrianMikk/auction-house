@@ -48,7 +48,6 @@ export async function updateAvatar(newAvatar) {
         });
 
         const updatedProfile = await response.json();
-        console.log("Avatar updated successfully:", updatedProfile);
     } catch (error) {
         console.error("Error updating avatar");
         throw error;
@@ -99,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
  * @returns {void}
  */
 export function fetchProfile() {
-    console.log("Fetching profile...");
 
     const userNameElement = document.getElementById("userName");
     const userCreditElement = document.getElementById("userCredit");
@@ -108,10 +106,6 @@ export function fetchProfile() {
     const userName = localStorage.getItem("name");
     const userCredit = localStorage.getItem("userCredit");
     const userAvatar = localStorage.getItem("chosenAvatar");
-
-    console.log("userName:", userName);
-    console.log("userCredit:", userCredit);
-    console.log("userAvatar:", userAvatar);
 
     if (userNameElement) {
         userNameElement.textContent = userName || "Guest";

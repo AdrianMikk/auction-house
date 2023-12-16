@@ -119,7 +119,6 @@ init();
  * @returns {void}
  */
 function createPostCard(post) {
-    // console.log(post);
     if (!postFeedContainer) {
         console.error("postFeedContainer not found in the document.");
         return;
@@ -228,7 +227,6 @@ async function viewBids(postId) {
  */
 function displayBids(data) {
     const bidData = data.bids;
-    console.log(bidData);
     const currentBid = document.getElementById("bidContainer");
     if (bidData.length === 0) {
         const noBids = document.createElement("p");
@@ -329,14 +327,11 @@ function bidNow(postId) {
             amount: parsedAmount,
         };
 
-        console.log(data);
-
         const response = await postBid(postId, data);
 
         alert("Bid added successfully");
         window.location.reload();
 
-        console.log(response);
     }
 }
 
