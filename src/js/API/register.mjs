@@ -1,7 +1,7 @@
 import { apiFetch } from "./apiFetch.mjs";
 
-const API_BASE_URL = "https://api.noroff.dev/api/v1/auction";
-const API_SOCIAL_REGISTER_PATH = "/auth/register";
+const API_BASE_URL = "https://api.noroff.dev/api/v1";
+const API_SOCIAL_REGISTER_PATH = "/auction/auth/register";
 const API_SOCIAL_REGISTER_URL = `${API_BASE_URL}${API_SOCIAL_REGISTER_PATH}`;
 
 /**
@@ -22,16 +22,14 @@ export async function registerEvent(event) {
         password: passwordRegisterInput.value,
     };
 
-    const registerOption = {
-        method: "POST",
-        body: JSON.stringify(registerData),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    };
+    const emailRegex = /^[^\s@]+@stud\.noroff\.no$/i;
+    if (!emailRegex.test(registerData.email)) {
+        console.error("Invalid email format. Please use a @stud.noroff.no email.");
+        return;
+    }
 
     try {
-        const response = await apiFetch(API_SOCIAL_REGISTER_URL, registerOption);
+        const response = await apiFetch(API_SOCIAL_REGISTER_URL, "POST", registerData);
         if (response) {
         } else {
             console.error("Registration failed:", response);
@@ -39,4 +37,4 @@ export async function registerEvent(event) {
     } catch (error) {
         console.error("An error occurred:", error);
     }
-};
+}

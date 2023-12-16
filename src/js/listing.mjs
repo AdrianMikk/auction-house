@@ -292,14 +292,18 @@ async function postBid(postId, data) {
  */
 function bidNow(postId) {
     const bidBtn = document.getElementById(postId);
-    bidBtn.addEventListener("click", function (event) {
+
+    bidBtn.removeEventListener("click", handleBidClick);
+
+    bidBtn.addEventListener("click", handleBidClick);
+
+    function handleBidClick(event) {
         event.preventDefault();
 
         const isLoggedIn = localStorage.getItem("accessToken");
 
         if (!isLoggedIn) {
             alert("Please log in to place a bid.");
-            // window.location.href = "/login";
             return;
         }
 
@@ -329,8 +333,9 @@ function bidNow(postId) {
         window.location.reload();
 
         console.log(response);
-    });
+    }
 }
+
 
 
 /**
@@ -358,7 +363,6 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
         const modalTitle = document.getElementById(modalTitleId);
         const modalBody = document.getElementById(modalBodyId);
         const modalImage = document.getElementById(modalImageId);
-        const postIdElement = document.getElementById(postIdId);
 
         modalTitle.textContent = post.title;
         modalBody.textContent = post.description;
@@ -382,7 +386,6 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
 
 addDeletePostListeners();
 addViewPostListeners();
-// filterPost();
 
 
 

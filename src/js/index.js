@@ -10,8 +10,8 @@ function formListener() {
     const loginRegisterButton = document.querySelector("#loginRegisterBtn");
     const registerButton = document.querySelector("#registerBtn");
 
-    console.log("Login Register Button:", loginRegisterButton);
-    console.log("Register Button:", registerButton);
+    // console.log("Login Register Button:", loginRegisterButton);
+    // console.log("Register Button:", registerButton);
 
     if (loginRegisterButton) {
         loginRegisterButton.addEventListener("click", loginEvent);

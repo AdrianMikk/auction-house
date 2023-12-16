@@ -22,6 +22,11 @@ export function handleCreatePost() {
     const newListingImage = document.getElementById("newPostImageInput");
     const newEndsAtDate = document.getElementById("endsAt");
 
+    if (!newListingName.value || !newListingBodyDesc.value || !newListingTags.value || !newListingImage.value || !newEndsAtDate.value) {
+        alert("Please fill in all the required fields.");
+        return;
+    }
+
     const title = newListingName.value;
     const description = newListingBodyDesc.value;
     const tags = newListingTags.value;
@@ -54,9 +59,8 @@ export async function postListing(url, data) {
         const response = await apiFetch(url, "post", data);
         console.log(response);
         if (response.ok) {
-            console.log("Added new listing");
-            // Optionally, you can redirect the user after successfully creating a listing
-            // window.location.href = "listings.html";
+            alert("Listing created successfully!");
+            window.location.href = "/listings.html";
         }
     } catch (error) {
         console.log(error.name + " " + error.message);
@@ -68,4 +72,7 @@ const createListingButton = document.getElementById("createListingBtn");
 createListingButton.addEventListener("click", function () {
     handleCreatePost();
 });
+
+
+
 
