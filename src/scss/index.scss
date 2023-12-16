@@ -35,11 +35,9 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    color: $text;
     transition: all 0.3s ease 0s;
     &:hover {
       background-color: $secondary;  
-      color: $background; 
     }
   }
 

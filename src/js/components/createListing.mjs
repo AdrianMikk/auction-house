@@ -55,21 +55,12 @@ export function handleCreatePost() {
  * @returns {void}
  */
 export async function postListing(url, data) {
-    try {
-        const response = await apiFetch(url, "post", data);
-
-        if (response.ok) {
-            alert("Listing created successfully!");
-            window.location.replace("/listings.html");
-        }
-    } catch (error) {
-        console.error("Error posting listing:", error);
-        alert("An error occurred while creating the listing. Please try again later.");
+    const result = await apiFetch(url, "post", data);
+    const { id } = result;
+    if (result.id) {
+        window.location.replace("/listings.html");
     }
 }
-
-
-
 
 const createListingButton = document.getElementById("createListingBtn");
 
