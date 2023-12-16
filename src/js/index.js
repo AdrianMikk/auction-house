@@ -43,9 +43,16 @@ export function removeNavLogOut() {
     const button = document.getElementById("logOut");
 
     if (window.location.pathname === "/index.html") {
+        if (localStorage.getItem("accessToken")) {
+            button.textContent = "Sign Out";
+        } else {
+            button.textContent = "Sign In";
+        }
+
         button.classList.add("d-none");
     }
 }
+
 
 formListener();
 removeNavLogOut();

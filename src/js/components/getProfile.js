@@ -58,8 +58,10 @@ export async function updateAvatar(newAvatar) {
 avatarButton.addEventListener("click", async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("accessToken");
+
     if (!token) {
-        console.log("Please log in to update your avatar.");
+        alert("Please log in to update your avatar.");
         return;
     }
 
@@ -73,9 +75,10 @@ avatarButton.addEventListener("click", async (e) => {
             console.error("Failed to update avatar:", error);
         }
     } else {
-        console.log("Please enter a new avatar URL.");
+        alert("Please enter a new avatar URL.");
     }
 });
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const chosenAvatar = localStorage.getItem("chosenAvatar");
