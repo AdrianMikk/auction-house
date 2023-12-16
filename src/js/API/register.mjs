@@ -24,7 +24,7 @@ export async function registerEvent(event) {
 
     const emailRegex = /^[^\s@]+@stud\.noroff\.no$/i;
     if (!emailRegex.test(registerData.email)) {
-        console.error("Invalid email format. Please use a @stud.noroff.no email.");
+        alert("Invalid email format. Please use a @stud.noroff.no email.");
         return;
     }
 

@@ -340,9 +340,6 @@ function bidNow(postId) {
     }
 }
 
-
-
-
 /**
  * Creates a button element with specified text and sets up event listeners for displaying post details and bids.
  *
