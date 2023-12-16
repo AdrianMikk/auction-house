@@ -3,15 +3,10 @@ import { registerEvent } from "./API/register.mjs";
 
 const userId = localStorage.getItem("name");
 const token = localStorage.getItem("accessToken");
-console.log("User ID:", userId);
-console.log("Access Token:", token);
 
 function formListener() {
     const loginRegisterButton = document.querySelector("#loginRegisterBtn");
     const registerButton = document.querySelector("#registerBtn");
-
-    // console.log("Login Register Button:", loginRegisterButton);
-    // console.log("Register Button:", registerButton);
 
     if (loginRegisterButton) {
         loginRegisterButton.addEventListener("click", loginEvent);
@@ -34,9 +29,6 @@ function formListener() {
 function checkIfLoggedIn() {
     const userId = localStorage.getItem("name")
     const token = localStorage.getItem("accessToken")
-
-    // if (userId && token)
-    //     window.location.replace(`/profile.html?=${userId}`);
 }
 
 export function removeNavLogOut() {
