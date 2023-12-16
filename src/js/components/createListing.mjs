@@ -58,14 +58,19 @@ export async function postListing(url, data) {
     try {
         const response = await apiFetch(url, "post", data);
         console.log(response);
+
         if (response.ok) {
             alert("Listing created successfully!");
-            window.location.href = "/listings.html";
+            window.location.replace("/listings.html");
+        } else if (!response.ok) {
+            alert("There seems to be some problems creating your listing, please try again soon");
         }
     } catch (error) {
         console.log(error.name + " " + error.message);
     }
 }
+
+
 
 const createListingButton = document.getElementById("createListingBtn");
 

@@ -1,6 +1,4 @@
 import { search } from "./components/search.mjs";
-// import { createNewElement } from "./components/filter.mjs";
-// import { filterPost } from "./components/filter.mjs";
 import { addViewPostListeners } from "./components/viewPost.js";
 import { addDeletePostListeners } from "./components/deletepost.js";
 import { logOutUser } from "./API/login.mjs";
@@ -297,7 +295,7 @@ function bidNow(postId) {
 
     bidBtn.addEventListener("click", handleBidClick);
 
-    function handleBidClick(event) {
+    async function handleBidClick(event) {
         event.preventDefault();
 
         const isLoggedIn = localStorage.getItem("accessToken");
@@ -321,13 +319,23 @@ function bidNow(postId) {
             return;
         }
 
+        const existingBids = await viewBids(postId);
+        const highestExistingBid = existingBids.bids.reduce((maxBid, bid) => {
+            return Math.max(maxBid, bid.amount);
+        }, 0);
+
+        if (parsedAmount <= highestExistingBid) {
+            alert("Your bid must be higher than the existing highest bid.");
+            return;
+        }
+
         const data = {
             amount: parsedAmount,
         };
 
         console.log(data);
 
-        const response = postBid(postId, data);
+        const response = await postBid(postId, data);
 
         alert("Bid added successfully");
         window.location.reload();
@@ -335,6 +343,7 @@ function bidNow(postId) {
         console.log(response);
     }
 }
+
 
 
 
@@ -366,22 +375,26 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
 
         modalTitle.textContent = post.title;
         modalBody.textContent = post.description;
-        modalImage.src = post.media;
+
+        const imageUrl = post.media || "https://via.placeholder.com/300";
+        modalImage.src = imageUrl;
+
+        modalImage.onerror = function () {
+            modalImage.src = "/images/noImage.png";
+        };
 
         const currentBid = document.getElementById("bidContainer");
         currentBid.innerHTML = "";
 
-
-        console.log(bidBtn)
         bidBtn.id = postId;
         bidNow(postId);
         const data = await viewBids(postId);
-        console.log(data);
         displayBids(data);
     });
 
     return button;
 }
+
 
 
 addDeletePostListeners();
