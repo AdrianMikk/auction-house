@@ -1,6 +1,5 @@
 import { search } from "./components/search.mjs";
 import { addViewPostListeners } from "./components/viewPost.js";
-import { addDeletePostListeners } from "./components/deletepost.js";
 import { logOutUser } from "./API/login.mjs";
 import { removeNavLogOut } from "./index.js";
 removeNavLogOut();
@@ -178,15 +177,6 @@ function createPostCard(post) {
     const buttonsContainer = document.createElement("div");
     buttonsContainer.classList.add("d-flex", "flex-column", "rounded", "p-2", "align-items-end");
     buttonsContainer.id = "bidNowBtn";
-
-    // Delete Button
-    // const deleteButton = document.createElement("button");
-    // deleteButton.classList.add("btn", "btn-danger", "delete-post", "rounded", "mb-3");
-    // deleteButton.textContent = "Delete Post";
-    // deleteButton.addEventListener("click", () => {
-    //     deletePost(post.id);
-    //     card.remove();
-    // });
 
     // Buttons
     const listingsId = post.id;
@@ -386,9 +376,6 @@ function createButton(text, modalTitleId, modalBodyId, modalImageId, postIdId, p
     return button;
 }
 
-
-
-addDeletePostListeners();
 addViewPostListeners();
 
 
