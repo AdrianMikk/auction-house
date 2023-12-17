@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (isValid) {
-      console.log("IT WORKS");
       alert("Form successfully submitted!");
       return true;
     }
@@ -97,9 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (validateForm()) {
       confDialog.style.display = "block";
       form.style.display = "none";
-      console.log("form complete");
     } else {
-      console.log("Complete form");
       event.preventDefault();
     }
   });

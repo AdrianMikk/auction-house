@@ -35,7 +35,6 @@ export function setToken(result) {
         alert("Enter correct email and password");
         throw new Error("Access token not found in the response.");
     }
-    console.log(result);
 }
 
 const API_AUCTION_LOGIN_PATH = "/auction/auth/login";
