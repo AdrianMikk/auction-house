@@ -44,21 +44,18 @@ This project exclusively focuses on developing the frontend application for an e
 
 # Getting Started
 
-To set up and run the frontend application, follow these steps:
+## How to Install 
 
-Clone the repository:
+To get all the dependencies for the project, run: 
+*     npm install
 
-git clone <repository-url>
+## How to Use
 
-Install dependencies:
+Locally: 
+*     npm start
 
-npm install
-
-Start the development server:
-
-npm start
-
-Open the application in your web browser at http://localhost:3000.
+Compiling Sass files into CSS: 
+*     npm run build
 
 Contributors
 [Your Name]
