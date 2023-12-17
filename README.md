@@ -57,13 +57,15 @@ Locally:
 Compiling Sass files into CSS: 
 *     npm run build
 
-Contributors
-[Your Name]
-[Collaborator 1]
-[Collaborator 2]
-License
-This project is licensed under the [License Name] - see the LICENSE.md file for details.
+# Credits
 
-Acknowledgments
-Special thanks to [Instructor Name] for guidance and support.
-Inspiration from [Any relevant sources].
+- Unsplash.com  for images and testing.
+- Noroff content
+- ChatGPT-4
+- Classmates in discord.
+
+# Acknowledgments
+
+Special thanks to Hans M. Andreassen for guidance and support. And the classmates for always having a piece of good advice and good feedback.
+
+
