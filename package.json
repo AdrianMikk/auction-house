@@ -1,0 +1,33 @@
+{
+  "name": "semester-project-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "sass src/scss:dist/css --watch",
+    "start": "live-server",
+    "dev": "npm-run-all --parallel watch start",
+    "build": "sass src/scss:dist/css --style compressed",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdrianMikk/auction-house.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdrianMikk/auction-house/issues"
+  },
+  "homepage": "https://github.com/AdrianMikk/auction-house#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.69.5"
+  }
+}

@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Poppins&display=swap");
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+}
+
+.modal-content {
+  width: 80%;
+  max-width: 600px;
+  margin: auto;
+  overflow: auto;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+.modal-content #modalTitle {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+.modal-content #modalImage {
+  max-height: 300px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin: 10px 0;
+}
+.modal-content #closeModalButton {
+  font-size: 24px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #555;
+}
+.modal-content #closeModalButton:hover {
+  color: #333;
+}
+
+.navbar, #btn, #loginRegisterBtn, #registerBtn, #avatarBtn,
+#closeBtn, #createListingBtn, footer {
+  background-color: #759395;
+}
+
+#closeBtn, footer {
+  background-color: #856866;
+}
+
+.footer-container {
+  color: white;
+}
+
+.btn-primary {
+  background-color: #759395;
+  border-color: #759395;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background-color: #5d787a;
+  border-color: #5d787a;
+}
+
+#fullName, #email, #subject, #message, #itemName, #itemDescription, #itemPrice, #itemTags, #newPostImageInput, #endsAt {
+  background-color: #E0D7DB;
+  border-radius: 1rem;
+}
+
+#viewPost, #bidBtn {
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+#viewPost:hover, #bidBtn:hover {
+  background-color: #856866;
+}
+
+.button {
+  background-color: #759395;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+.button:hover {
+  background-color: #856866;
+  color: #E0D7DB;
+}
+
+#avatarText {
+  border-radius: 5px;
+  background-color: #E0D7DB;
+  padding: 5px;
+}
+
+#avatarImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #759395;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+#avatarImage:hover {
+  transform: scale(1.1);
+}
+
+#postFeed .card {
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+#postFeed .card:hover {
+  transform: scale(1.1);
+}
+
+#postImageId {
+  max-height: 200px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin: 10px 0;
+}/*# sourceMappingURL=index.css.map */

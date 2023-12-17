@@ -1,0 +1,98 @@
+@import "./variables/colorTheme";
+@import "./variables/fonts";
+@import "./listingModal.scss";
+
+.navbar, #btn, #loginRegisterBtn, #registerBtn, #avatarBtn,
+#closeBtn, #createListingBtn, footer {
+  background-color: $primary;
+}
+
+#closeBtn, footer {
+  background-color: $secondary;
+}
+
+.footer-container {
+  color: white;
+}
+
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+
+  &:hover, &:focus {
+    background-color: darken($primary, 10%);
+    border-color: darken($primary, 10%);
+  }
+}
+
+#fullName, #email, #subject, #message, #itemName, #itemDescription, #itemPrice, #itemTags, #newPostImageInput, #endsAt {
+  background-color: $background-white;
+  border-radius: 1rem;
+}
+
+#viewPost, #bidBtn {
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    &:hover {
+      background-color: $secondary;  
+    }
+  }
+
+.button {
+  background-color: $primary;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  &:hover {
+    background-color: $secondary;
+    color: $background-white;
+  }
+
+}
+
+  #avatarText {
+    border-radius: 5px;
+    background-color: $background-white;
+    padding: 5px;
+  }
+
+$avatarSize: 150px;
+$avatarBorderRadius: 50%;
+
+#avatarImage {
+  width: $avatarSize;
+  height: $avatarSize;
+  border-radius: $avatarBorderRadius;
+  border: 2px solid $primary; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.3s ease-in-out; 
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+#postFeed {
+  .card {
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease-in-out; 
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+#postImageId {
+  max-height: 200px; 
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin: 10px 0;
+}
